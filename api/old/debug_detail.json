@@ -1,0 +1,42 @@
+{
+    "id": 40,
+    "name": "玉サボテン様練り込みコーヒーカップ「墨流し」",
+    "category": "コーヒーカップ",
+    "description": "白土と黒土を練り込んで成形し、玉サボテンをモチーフに六角形のふくらみを彫り込んだ、力強さとやわらかさを併せ持つコーヒーカップです。\n外側には、細やかな貫入が入る貫入性志野釉を施しました。\n白土と黒土のコントラストは、釉薬の効果により、白はややクリーム色に、黒はグレーがかった柔らかな色調へと変化し、全体に穏やかな表情をもたらしています。\n本体は短い円柱形で、6本の低い力強い脚でカップを支えています。安定感と同時に、独自の存在感を演出します。\n内側には黒天目釉を使用しました。\n縁の部分では2種類の釉薬が重なり合って泡状の模様が生まれています。\n流れるような練り込み模様と、しのぎによって生まれた有機的な歪みの線。\nその見た目が、日本の伝統的な染色技法「墨流し」を思わせることから、この作品に「墨流し」という銘をつけました。",
+    "spec": "直径：約9.0cm (取っ手を除く)、約11.5cm (取っ手を含む)\r\n高さ：約7.0cm\r\n容量：約180cc (8割注水時)\r\n重さ：241g",
+    "width": 9,
+    "maxWidth": 11.5,
+    "height": 7,
+    "weight": 241,
+    "capacity": 180,
+    "cray": "白＋黒",
+    "graze": "外側：貫入性志乃\n内側：黒天目",
+    "notes": "",
+    "sold": false,
+    "url": "https:\/\/minne.com\/items\/42866956",
+    "instagramUrl": "https:\/\/www.instagram.com\/p\/DIyqnpJzqjd\/",
+    "completionDate": "2025-02-16T00:00:00.000000Z",
+    "updateDate": "2025-07-15T00:00:00.000000Z",
+    "valid": true,
+    "technique": [
+        "練り込み",
+        "しのぎ"
+    ],
+    "media": [
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_01%E6%89%8B%E6%8C%81%E3%81%A1.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_02_%E5%8F%B3.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_03%E6%AD%A3%E9%9D%A2.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_04%E5%B7%A6.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_05%E5%8F%96%E3%81%A3%E6%89%8B.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_06%E6%8B%A1%E5%A4%A701.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_07%E6%8B%A1%E5%A4%A702.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_08%E6%8B%A1%E5%A4%A703.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_09%E6%8B%A1%E5%A4%A704.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_10%E5%8F%96%E3%81%A3%E6%89%8B%E6%8B%A1%E5%A4%A7.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_11%E8%A6%8B%E8%BE%BC%E3%81%BF.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_12%E8%A3%8F.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_13%E8%B6%B3.jpg",
+        "https:\/\/storage.googleapis.com\/sisiwaka-touen-medias\/040%2F040_%E5%A2%A8%E6%B5%81%E3%81%97.mp4"
+    ],
+    "docId": "bN0GGnkWh8B9BbUTwMOV"
+}

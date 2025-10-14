@@ -1,0 +1,263 @@
+@charset "UTF-8";
+
+.back_to_works {
+	text-align: right;
+	display: block;
+}
+
+.works_name_container {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 64px;
+	margin-bottom: 0;
+	width: fit-content;
+}
+
+#works_name {
+	display: block;
+	font-size: 2rem;
+	font-weight: 600;
+	font-family: "Yuji Boku", serif;
+	border-bottom: 1px solid lightgoldenrodyellow;
+}
+
+
+/* ------------------------------
+  ギャラリー(Swiper)
+ ------------------------------ */
+.swiper {
+	width: 100%;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 250px;
+	height: 300px;
+	object-fit: cover;
+	transition: .7s;
+	/* アスペクト比を保ったまま切り抜き */
+	object-position: center;
+	margin: 0 auto;
+}
+
+/* 非アクティブ（左右）の画像 */
+.swiper-slide:not(.swiper-slide-active) img {
+	opacity: 0.3;
+	transform: scale(0.8);
+	/* 0.8倍に縮小 */
+}
+
+/* アクティブ（中央）の画像 */
+.swiper-slide-active img {
+	opacity: 1;
+	transform: scale(1);
+	/* 元の大きさ */
+	z-index: 1;
+}
+
+/* 前への矢印 */
+.gallerySwiperContainer .swiper-button-prev {
+	left: -20px;
+	width: 80px;
+	height: auto;
+}
+
+/* 次への矢印 */
+.gallerySwiperContainer .swiper-button-next {
+	right: -20px;
+	width: 80px;
+	height: auto;
+}
+
+.gallerySwiperContainer .swiper-button-next::after,
+.gallerySwiperContainer .swiper-button-prev::after {
+	background-repeat: no-repeat;
+	background-size: contain;
+	content: "";
+	width: 80px;
+	margin: auto;
+	height: 80px;
+}
+
+.gallerySwiperContainer .swiper-button-prev::after {
+	background-image: url(../images/sliderLeftArrow.png);
+}
+
+.gallerySwiperContainer .swiper-button-next::after {
+	background-image: url(../images/sliderRightArrow.png);
+}
+
+/* Swiper標準の左右矢印が出てしまうので強制的に非表示 */
+.swiper-navigation-icon {
+	display: none;
+}
+
+/* ページネーション */
+.gallerySwiperContainer .swiper-horizontal>.swiper-pagination-bullets,
+.gallerySwiperContainer .swiper-pagination-bullets.swiper-pagination-horizontal,
+.gallerySwiperContainer .swiper-pagination-custom,
+.gallerySwiperContainer .swiper-pagination-fraction {
+	bottom: -56px;
+}
+
+/* 非アクティブ時：淡い陰陽マーク */
+.gallerySwiperContainer .swiper-pagination-bullet {
+	background-color: transparent;
+	background-image: url('../images/pagenation.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	border-radius: unset;
+	opacity: 0.3;
+	/* アイコンのサイズ */
+	width: 32px;
+	height: 32px;
+	margin: 0 4px !important;
+	/* ドット間隔 */
+}
+
+/* アクティブ時：くっきり陰陽マーク */
+.gallerySwiperContainer .swiper-pagination-bullet-active {
+	background-image: url('../images/pagenation.png');
+	opacity: 1;
+}
+
+.gallerySwiperContainer {
+	margin-top: 64px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 120px;
+	max-width: 800px;
+	position: relative;
+}
+
+/* lightbox：スライダー画像をクリックしたら、画面上に最大表示 */
+#lightbox {
+	position: fixed;
+	inset: 0;
+	/* ⇒top／right／bottom／leftすべて0。画面全体を覆う定番の書き方 */
+	background: rgba(0, 0, 0, 0.75);
+	display: none;
+	/* 中央寄せ */
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	cursor: zoom-out;
+	/* クリックで閉じる感を出す */
+}
+
+/* 画像・動画 共通スタイル */
+.lightbox-media {
+	max-width: 100vw;
+	max-height: 100vh;
+	object-fit: contain;
+	user-select: none;
+	transform: scale(0.4);
+	opacity: 0;
+	transition: transform 0.5s ease, opacity 0.5s ease;
+	margin: auto;
+}
+
+/* 表示アニメ */
+.lightbox-media.show {
+	transform: scale(1);
+	opacity: 1;
+}
+
+/* 閉じるアニメ中 */
+.lightbox-media.closing {
+	transform: scale(0.4);
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* 動画上はカーソルを通常に（コントロール操作しやすく）*/
+#lightboxVideo {
+	cursor: default;
+}
+
+/* 内側のラッパー：クリックで閉じる判定をしやすく */
+#lightboxInner {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+}
+
+.works_spec_container {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: baseline;
+	row-gap: 1rem;
+	column-gap: 2rem;
+}
+
+.works_spec_container dt {
+	font-family: "Yuji Boku", serif;
+	font-size: 1.3rem;
+	color: lightgoldenrodyellow;
+	text-align: right;
+	font-weight: 800;
+}
+
+.works_spec_container dd {
+	font-size: 1.1rem;
+	margin: 0;
+	white-space: pre-line;
+	line-height: 1.8;
+	text-align: justify;
+}
+
+.works_spec_container dd.spec_update_date_style {
+	text-align: right;
+	font-size: 0.9rem;
+}
+
+/* ------------------------------
+  ログインモーダル
+ ------------------------------ */
+#login_modal_wrapper {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	align-items: center;
+	justify-content: center;
+}
+
+.login_modal {
+	background: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+}
+
+.login_modal h2 {
+	font-size: 2rem;
+	font-weight: 600;
+	text-align: center;
+}
+
+.login_modal label {
+	display: block;
+	margin-top: 16px;
+}
+
+.login_modal button {
+	display: block;
+	margin-top: 16px;
+	border: 1px solid #000000;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 6px 12px;
+	background-color: #cccccc;
+}
+
+/* スマホ向け（幅600px以下） */
+@media screen and (max-width: 600px) {}

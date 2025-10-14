@@ -1,0 +1,41 @@
+/* 全体グリッド */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* 作品カード */
+.artwork-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  transition: transform .2s;
+}
+.artwork-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 画像 */
+.artwork-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* カード本文 */
+.artwork-info {
+  padding: .5rem 1rem;
+}
+.artwork-info h2 {
+  font-size: 1.2rem;
+  margin: .5rem 0;
+}
+.artwork-info p {
+  font-size: .9rem;
+  line-height: 1.4;
+  margin: .3rem 0;
+}

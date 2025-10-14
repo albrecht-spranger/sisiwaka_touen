@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+/* header、footerの参考元：https://matsushitafudousan.com/ */
+
+body {
+	background-color: black;
+	/* font-family: "Yuji Boku", serif; */
+	font-family: "Yuji Syuku", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+header,
+footer {
+	max-width: 1200px;
+	margin: auto;
+	color: lightgoldenrodyellow;
+	background-color: black;
+}
+
+.nav_font {
+	font-family: "Yuji Boku", serif;
+	font-weight: 600;
+	font-size: 1.6rem;
+	color: lightgoldenrodyellow;
+	/* border-bottom: 1px solid lightgoldenrodyellow; */
+	/* text-decoration: underline; */
+	/* text-underline-offset: 0.6rem; */
+	margin-top: 16px;
+	margin-bottom: 32px;
+}
+
+header {
+	top: 0;
+	padding: 0 12px 0 12px;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header_left_block {
+	display: flex;
+	align-items: center;
+}
+
+.sisiwaka_touen_icon {
+	width: 40px;
+	height: auto;
+	border-radius: 50%;
+}
+
+header h1 {
+	font-size: 2rem;
+	margin-left: 16px;
+}
+
+.header_right_block {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.minne_icon img {
+	width: auto;
+	height: 30px;
+	background-color: white;
+}
+
+.instagram_icon img {
+	width: 30px;
+	height: 30px;
+}
+
+main {
+	max-width: 1200px;
+	margin: 0 auto;
+	background-color: #111111;
+	color: gainsboro;
+	line-height: 1.6;
+	padding: 32px;
+}
+
+.main_container {
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.link_style {
+	/* color: lightgoldenrodyellow; */
+	text-decoration: underline;
+}
+
+footer {
+	bottom: 0;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+main.p {
+	font-size: 18px;
+}
+
+.section_contents {
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+/*
+    Aboutセクション
+*/
+.intro_area {
+	display: flex;
+	gap: 40px;
+}
+
+.sisiwaka_family_area {
+	flex: 1;
+	min-width: 200px;
+	overflow: hidden;
+}
+
+.sisiwaka_family_area img {
+	width: 100%;
+	height: auto;
+}
+
+.sisiwaka_family_area figcaption {
+	font-size: 14px;
+	text-align: center;
+}
+
+.intro_text {
+	flex: 2;
+}
+
+/*
+    更新情報セクション
+*/
+/* 初期状態は1行表示（折り返さず省略形） */
+.update_article {
+  appearance: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  cursor: pointer;
+  color: #333;
+  white-space: nowrap;          /* 1行に収める */
+  overflow: hidden;             /* 念のため */
+  text-overflow: clip;          /* JS側で「…」付与するのでCSSの省略記号は使わない */
+}
+
+.update_article:hover,
+.update_article:focus {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* 展開時は改行と折り返しを有効化して全文表示 */
+.update_article.is-expanded {
+  white-space: pre-wrap;        /* 改行と連続空白を保持しつつ折り返し */
+  text-decoration: none;        /* 展開時は下線を外す */
+}
+
+/*
+    Worksへのリンクセクション開始
+*/
+.link_2_works {
+	display: block;
+	padding-left: 80px;
+	padding-right: 80px;
+	/* font-size: 1.4rem; */
+}
+
+/*
+    Contactセクション
+*/
+.contact_box a {
+	color: lightgoldenrodyellow;
+	text-decoration: underline;
+	word-break: break-word;
+}
+
+/* Contactセクション終わり */
+
+/* セクション間の間隔調整 */
+.works_section,
+.news_section,
+.about_section,
+.contact_section {
+	margin-bottom: 80px;
+}
+
+/* スマホ向け（幅600px以下） */
+@media screen and (max-width: 600px) {
+	.section_contents {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	/* Worksへのリンクセクション */
+	/* スマホ対応：3列 */
+	@media screen and (max-width: 600px) {
+		.tile_container {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	/* Aboutセクション */
+	.intro_area {
+		display: block;
+	}
+
+	/* Aboutセクション終わり */
+
+	/* Newsセクション */
+	.news_item {
+		display: block;
+	}
+
+	.news_item dt {
+		margin-bottom: 4px;
+	}
+
+	/* Newsセクション終わり */
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>シシワカ陶苑 - 作品一覧</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/works.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Yuji+Syuku&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<a href="index.html" class="header_left_block">
+			<img class="sisiwaka_touen_icon" src="images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
+			<h1>
+				シシワカ陶苑
+			</h1>
+		</a>
+		<div class="header_right_block">
+			<div class="minne_icon">
+				<a href="https://minne.com/@sisiwaka10en" target="_blank">
+					<img src="images/minne_logo_vertical.png" alt="minne logo">
+				</a>
+			</div>
+			<div class="instagram_icon">
+				<a href="https://www.instagram.com/albrecht1999/" target="_blank">
+					<img src="images/Instagram_Glyph_Gradient.png" alt="Instagram Icon">
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<div class="main_container">
+			<p class="back_to_index"><a href="index.html" class="link_style">トップに戻る</a></p>
+
+			<div class="title_and_button">
+				<h2 class="nav_font">作品一覧</h2>
+				<button id="search_toggle_btn" type="button">
+					検索条件（開く）
+				</button>
+			</div>
+
+			<div id="search_panel">
+				<form id="search_form">
+					<!-- 用途 -->
+					<fieldset class="field_group">
+						<legend>
+							<span>用途</span>
+							<button type="button" id="clear_category" class="btn_in_search_panel">用途をクリア</button>
+						</legend>
+						<div class="checkbox_container" id="checkbox_category">
+						</div>
+					</fieldset>
+
+					<!-- 技法 -->
+					<fieldset class="field_group">
+						<legend>
+							技法
+							<button type="button" id="clear_techniques" class="btn_in_search_panel">技法をクリア</button>
+						</legend>
+						<div class="checkbox_container" id="checkbox_techniques">
+						</div>
+					</fieldset>
+
+					<!-- 色合い -->
+					<fieldset class="field_group">
+						<legend>
+							色合い
+							<button type="button" id="clear_coloring" class="btn_in_search_panel">色合いをクリア</button>
+						</legend>
+						<div class="checkbox_container" id="checkbox_coloring">
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
+			<!-- 条件に従った一覧表示 -->
+			<div id="gallery" class="grid"></div>
+		</div>
+	</main>
+
+	<footer>
+		<p><small>&copy; 2025 シシワカ陶苑</small></p>
+	</footer>
+
+	<!-- 作品詳細ページJavaScript -->
+	<script src="scripts/works.js"></script>
+</body>
+
+</html>
