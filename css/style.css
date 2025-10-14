@@ -4,8 +4,7 @@
 
 body {
 	background-color: black;
-	/* font-family: "Yuji Boku", serif; */
-	font-family: "Yuji Syuku", serif;
+	font-family: "Hina Mincho", serif;
 	font-weight: 400;
 	font-style: normal;
 }
@@ -19,8 +18,8 @@ footer {
 }
 
 .nav_font {
-	font-family: "Yuji Boku", serif;
-	font-weight: 600;
+	font-family: "M PLUS 2", serif;
+	font-weight: 400;
 	font-size: 1.6rem;
 	color: lightgoldenrodyellow;
 	margin-top: 16px;
@@ -49,7 +48,7 @@ header {
 
 header h1 {
 	font-size: 2rem;
-	font-family: "Yuji Boku", serif;
+	font-family: "Kaisei Tokumin", serif;
 	margin-left: 16px;
 }
 
