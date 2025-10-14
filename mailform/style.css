@@ -43,15 +43,6 @@ body {
 /* ----------------------------------------------------------
     要素
 ------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6 {
-    max-height: 100%;
-    font-weight: normal;
-    -moz-font-feature-settings: "palt";
-    -webkit-font-feature-settings: "palt";
-    font-feature-settings: "palt";
-    line-height: 1.2;
-    color: #222;
-}
 p {
     max-height: 100%;
     margin: 0 0 1em;
@@ -89,12 +80,6 @@ pre {
 }
 
 figure { margin: 0 0 1em; }
-
-a { color: #04c; }
-a:link, a.visited { text-decoration: underline; }
-a:hover, a.active { text-decoration: none; }
-a:focus { outline: thin dotted; }
-a:hover, a:active { outline: 0; }
 
 img { vertical-align: middle; }
 
@@ -391,6 +376,76 @@ legend {
 /* 説明文を表示するためのタグ */
 #txt_explain {
 	color: #000000;
+}
+
+/* ----------------------------------------------------------
+    ヘッダ、フッタ
+------------------------------------------------------------- */
+header,
+footer {
+	max-width: 1200px;
+	margin: auto;
+	color: lightgoldenrodyellow;
+	background-color: black;
+}
+
+.nav_font {
+	font-family: "Yuji Boku", serif;
+	font-weight: 600;
+	font-size: 1.6rem;
+	color: lightgoldenrodyellow;
+	margin-top: 16px;
+	margin-bottom: 32px;
+}
+
+header {
+	top: 0;
+	padding: 0 12px 0 12px;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+header a {
+    text-decoration: none;
+}
+
+.header_left_block {
+	display: flex;
+	align-items: center;
+}
+
+.sisiwaka_touen_icon {
+	width: 40px;
+	height: auto;
+	border-radius: 50%;
+}
+
+header h1 {
+	color: lightgoldenrodyellow;
+	font-family: "Yuji Syuku", serif;
+    font-style: normal;
+	font-size: 2rem;
+	margin-left: 16px;
+    font-weight: 400;
+}
+
+.header_right_block {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.minne_icon img {
+	width: auto;
+	height: 30px;
+	background-color: white;
+}
+
+.instagram_icon img {
+	width: 30px;
+	height: 30px;
 }
 
 /* ----------------------------------------------------------
