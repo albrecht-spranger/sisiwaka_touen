@@ -1,0 +1,1 @@
+mysql -u root sisiwaka_touen < C:\xampp\htdocs\sisiwaka_touen\db\bkup_sisiwaka_touen.sql

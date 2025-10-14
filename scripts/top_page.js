@@ -84,7 +84,7 @@ async function load_updates() {
 	root.innerHTML = '<div class="updates_spinner" role="status" aria-live="polite">読み込み中…</div>';
 
 	try {
-		const res = await fetch('../api/updates.php', { headers: { 'Accept': 'application/json' } });
+		const res = await fetch('/sisiwaka_touen/api/updates.php', { headers: { 'Accept': 'application/json' } });
 		if (!res.ok) throw new Error('network');
 		const json = await res.json();
 		if (json.status !== 'ok' || !Array.isArray(json.data)) throw new Error('bad_format');

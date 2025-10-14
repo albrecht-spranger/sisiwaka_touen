@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	el_edit_link.addEventListener('click', async (e) => {
 		e.preventDefault();
 		// ログインチェック（サーバAPI）
-		const res = await fetch('../api/session_status.php');
+		const res = await fetch('/sisiwaka_touen/api/session_status.php');
 		const data = await res.json();
 		if (data.logged_in) {
 			window.location.href = `edit.html?id=${encodeURIComponent(id)}`;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const payload = { id: form.get('id'), password: form.get('password') };
 
 		try {
-			const res = await fetch('../api/login.php', {
+			const res = await fetch('/sisiwaka_touen/api/login.php', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
@@ -105,7 +105,7 @@ async function make_details() {
 	// 詳細と画像一覧をDBから取得
 	let data = {};
 	try {
-		const res = await fetch(`../api/detail.php?id=${encodeURIComponent(id)}`)
+		const res = await fetch(`/sisiwaka_touen/api/detail.php?id=${encodeURIComponent(id)}`)
 		data = await res.json();
 	} catch (error) {
 		console.error("作品情報取得エラー:", error);
@@ -164,7 +164,7 @@ async function make_details() {
 		link.rel = 'noopener noreferrer';     // セキュリティ対策
 
 		const img = document.createElement('img');
-		img.src = '../images/Instagram_Glyph_Gradient.png';
+		img.src = './images/Instagram_Glyph_Gradient.png';
 		img.alt = 'Instagramへ';
 		img.loading = 'lazy';
 
@@ -192,7 +192,7 @@ async function make_details() {
 		link.rel = 'noopener noreferrer';     // セキュリティ対策
 
 		const img = document.createElement('img');
-		img.src = '../images/minne_logo_vertical.png';
+		img.src = './images/minne_logo_vertical.png';
 		img.alt = 'オンラインショップへ';
 		img.loading = 'lazy';
 

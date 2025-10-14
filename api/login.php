@@ -34,12 +34,9 @@ if ($id === '' || $pw === '') {
 	exit;
 }
 
-// ====== 環境設定（必要に応じて .env やサーバ環境変数に置き換えてOK） ======
-$DB_HOST = 'localhost';
-$DB_NAME = 'sisiwaka_touen';
-$DB_USER = 'sisiwaka_reader';
+// ====== DB環境変数設定 ======
 $env = parse_ini_file(__DIR__ . '/.env');
-if ($env === false || !isset($env['DB_READER_PW'])) {
+if ($env === false) {
 	http_response_code(500);
 	echo json_encode([
 		'error' => 'Internal Server Error',
@@ -47,6 +44,9 @@ if ($env === false || !isset($env['DB_READER_PW'])) {
 	], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 	exit;
 }
+$DB_NAME = $env['DB_NAME'];
+$DB_USER = $env['DB_READER'];
+$DB_HOST = $env['DB_HOST'];
 $DB_PASS = $env['DB_READER_PW'];
 $dsn = "mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8mb4";
 

@@ -142,31 +142,36 @@ main.p {
 */
 /* 初期状態は1行表示（折り返さず省略形） */
 .update_article {
-  appearance: none;
-  background: transparent;
-  border: none;
-  text-align: left;
-  padding: 0;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  cursor: pointer;
-  color: #333;
-  white-space: nowrap;          /* 1行に収める */
-  overflow: hidden;             /* 念のため */
-  text-overflow: clip;          /* JS側で「…」付与するのでCSSの省略記号は使わない */
+	appearance: none;
+	background: transparent;
+	border: none;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.6;
+	cursor: pointer;
+	color: #333;
+	white-space: nowrap;
+	/* 1行に収める */
+	overflow: hidden;
+	/* 念のため */
+	text-overflow: clip;
+	/* JS側で「…」付与するのでCSSの省略記号は使わない */
 }
 
 .update_article:hover,
 .update_article:focus {
-  text-decoration: underline;
-  outline: none;
+	text-decoration: underline;
+	outline: none;
 }
 
 /* 展開時は改行と折り返しを有効化して全文表示 */
 .update_article.is-expanded {
-  white-space: pre-wrap;        /* 改行と連続空白を保持しつつ折り返し */
-  text-decoration: none;        /* 展開時は下線を外す */
+	white-space: pre-wrap;
+	/* 改行と連続空白を保持しつつ折り返し */
+	text-decoration: none;
+	/* 展開時は下線を外す */
 }
 
 /*
@@ -182,6 +187,17 @@ main.p {
 /*
     Contactセクション
 */
+.contact_box {
+	display: block;
+	width: fit-content;
+	margin: 128px auto 64px auto;
+}
+
+.contact_box img {
+	width: 32px;
+	height: 32px;
+}
+
 .contact_box a {
 	color: lightgoldenrodyellow;
 	text-decoration: underline;
@@ -193,8 +209,7 @@ main.p {
 /* セクション間の間隔調整 */
 .works_section,
 .news_section,
-.about_section,
-.contact_section {
+.about_section {
 	margin-bottom: 80px;
 }
 

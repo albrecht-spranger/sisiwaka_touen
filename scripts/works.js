@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 用途のチェックボックス群を作成
 //
 async function make_category_checkbox() {
-	const res = await fetch('../api/categories.php');
+	const res = await fetch('/sisiwaka_touen/api/categories.php');
 	if (!res.ok) {
 		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
 	}
@@ -70,7 +70,7 @@ async function make_category_checkbox() {
 // 技法のチェックボックス群を作成
 //
 async function make_techniques_checkbox() {
-	const res = await fetch('../api/techniques.php');
+	const res = await fetch('/sisiwaka_touen/api/techniques.php');
 	if (!res.ok) {
 		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
 	}
@@ -100,7 +100,7 @@ async function make_techniques_checkbox() {
 // 色合いのチェックボックス群を作成
 //
 async function make_coloring_checkbox() {
-	const res = await fetch('../api/colorings.php');
+	const res = await fetch('/sisiwaka_touen/api/colorings.php');
 	if (!res.ok) {
 		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
 	}
@@ -183,7 +183,7 @@ function fetchWithCurrentForm() {
 	// フォームから検索条件を取得
 	const conditions = get_conditions();
 	const params = buildParams(conditions);
-	const url = `../api/works.php${params.toString() ? "?" + params.toString() : ""}`;
+	const url = `/sisiwaka_touen/api/works.php${params.toString() ? "?" + params.toString() : ""}`;
 
 	// 検索条件をセッションストレージに保存
 	save_conditions(conditions);
@@ -262,7 +262,7 @@ function renderGallery(items) {
 			fig.appendChild(figcaption);
 			div.appendChild(fig);
 			div.addEventListener('click', () => {
-				window.location.href = `/detail.html?id=${item.id}`;
+				window.location.href = `./detail.html?id=${item.id}`;
 			});
 		} else {
 			div.textContent = `No Image (${item.id})`;

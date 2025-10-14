@@ -2,12 +2,9 @@
 // /api/detail.php
 declare(strict_types=1);
 
-// ====== 環境設定（必要に応じて .env やサーバ環境変数に置き換えてOK） ======
-$DB_HOST = 'localhost';
-$DB_NAME = 'sisiwaka_touen';
-$DB_USER = 'sisiwaka_editor';
+// ====== DB環境変数設定 ======
 $env = parse_ini_file(__DIR__ . '/.env');
-if ($env === false || !isset($env['DB_READER_PW'])) {
+if ($env === false) {
 	http_response_code(500);
 	echo json_encode([
 		'error' => 'Internal Server Error',
@@ -15,7 +12,11 @@ if ($env === false || !isset($env['DB_READER_PW'])) {
 	], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 	exit;
 }
+$DB_NAME = $env['DB_NAME'];
+$DB_USER = $env['DB_EDITOR'];
+$DB_HOST = $env['DB_HOST'];
 $DB_PASS = $env['DB_EDITOR_PW'];
+$dsn = "mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8mb4";
 
 // ===== レスポンス形式 =====
 header('Content-Type: application/json; charset=utf-8');
@@ -33,7 +34,6 @@ if ($id === false || $id === null) {
 
 try {
 	// ====== DB接続 ======
-	$dsn = "mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8mb4";
 	$pdo = new PDO($dsn, $DB_USER, $DB_PASS, [
 		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// IDの作品情報を読み込む
 	let data = {};
 	try {
-		const res = await fetch(`../api/edit_read.php?id=${encodeURIComponent(id)}`);
+		const res = await fetch(`/sisiwaka_touen/api/edit_read.php?id=${encodeURIComponent(id)}`);
 		data = await res.json();
 	} catch (err) {
 		console.error('データ取得エラー:', err);
@@ -162,7 +162,7 @@ function set_detail(data) {
 async function make_category(selected_slug = null) {
 	let categories = {};
 	try {
-		const res = await fetch('../api/categories.php');
+		const res = await fetch('/sisiwaka_touen/api/categories.php');
 		categories = await res.json();
 	} catch {
 		console.error("用途一覧の取得エラー");
@@ -206,7 +206,7 @@ async function make_techniques(selected_slugs = []) {
 
 	let techniques;
 	try {
-		const res = await fetch('../api/techniques.php');
+		const res = await fetch('/sisiwaka_touen/api/techniques.php');
 		techniques = await res.json();
 	} catch (e) {
 		console.error("技法一覧の取得エラー", e);
@@ -244,7 +244,7 @@ async function make_techniques(selected_slugs = []) {
 async function make_coloring(selected_slug = null) {
 	let colorings = {};
 	try {
-		const res = await fetch('../api/colorings.php');
+		const res = await fetch('/sisiwaka_touen/api/colorings.php');
 		colorings = await res.json();
 	} catch {
 		console.error("色合い一覧の取得エラー");
@@ -346,7 +346,7 @@ function make_lightbox() {
 
 	function showOverlay() {
 		lightbox.style.display = 'flex';
-		lightbox.setAttribute('aria-hidden', 'false');
+		// lightbox.setAttribute('aria-hidden', 'false');
 		document.body.style.overflow = 'hidden';
 		lightbox.tabIndex = -1;
 		lightbox.focus();
@@ -354,7 +354,7 @@ function make_lightbox() {
 
 	function hideOverlay() {
 		lightbox.style.display = 'none';
-		lightbox.setAttribute('aria-hidden', 'true');
+		// lightbox.setAttribute('aria-hidden', 'true');
 		document.body.style.overflow = '';
 		lightbox.removeAttribute('tabindex');
 	}
