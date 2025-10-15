@@ -151,6 +151,13 @@ footer {
     font-weight: 600;
 }
 
+.form_table td {
+    width: 100%;
+    max-width: 100%;
+    font-size: 1.2rem;
+    color: gainsboro;
+}
+
 /* テキスト入力系をフル幅に */
 .form_table td input[type="text"],
 .form_table td textarea {
@@ -183,7 +190,8 @@ footer {
 .button_box {
     display: flex;
     justify-content: center;
-    margin: 24px 0;
+    justify-content: space-evenly;
+    margin-bottom: 80px;
 }
 
 /* submitボタン */
@@ -207,4 +215,5 @@ footer {
 	font-family: "M PLUS 2", sans-serif;
     font-size: 1rem;
     text-align: right;
+    margin-bottom: 80px;
 }

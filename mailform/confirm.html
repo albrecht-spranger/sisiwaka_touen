@@ -4,49 +4,71 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{$basic_pagetitle}</title>
+	<link rel="stylesheet" href="https://ss953871.stars.ne.jp/sisiwaka_touen/css/reset.css">
+	<link type="text/css" rel="stylesheet" href="./css/form.css?{$update_time}" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Yuji+Syuku&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/form.css?{$update_time}" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kaisei+Tokumin&family=M+PLUS+2:wght@100..900&family=Zen+Antique&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
-	<div id="wrapper">
+	<header>
+		<a href="https://ss953871.stars.ne.jp/sisiwaka_touen/index.html" class="header_left_block">
+			<img class="sisiwaka_touen_icon"
+				src="https://ss953871.stars.ne.jp/sisiwaka_touen/images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
+			<h1>
+				シシワカ陶苑
+			</h1>
+		</a>
+		<div class="header_right_block">
+			<div class="minne_icon">
+				<a href="https://minne.com/@sisiwaka10en" target="_blank">
+					<img src="https://ss953871.stars.ne.jp/sisiwaka_touen/images/minne_logo_vertical.png"
+						alt="minne logo">
+				</a>
+			</div>
+			<div class="instagram_icon">
+				<a href="https://www.instagram.com/albrecht1999/" target="_blank">
+					<img src="https://ss953871.stars.ne.jp/sisiwaka_touen/images/Instagram_Glyph_Gradient.png"
+						alt="Instagram Icon">
+				</a>
+			</div>
+		</div>
+	</header>
 
-		<div id="main">
-			<form method="post" action="./">
-				<div class="section">
-					<h2 class="section__ttl">{$basic_formname}(確認)</h2>
-					<div class="section__body">
-						<div id="txt_explain">
-							<p>記入事項をご確認の上、問題がなければ「送信」をクリックしてください。<br /></p>
-						</div>
-
-						<table class="table" cellspacing="0">
-							{$form_data}
-						</table>
-
-						<div class="button_box">
-							<input type="submit" name="submit_button" value="送信">
-							<input type="submit" name="submit_button" value="戻る">
-						</div>
-
-					</div>
-
-				</div>
-
-
-			</form>
-
-			<div class="button_box">
-				[<a href="{$basic_moveurl}">サイトへ戻る</a>]
+	<main>
+		<section class="mailform_section">
+			<div class="mailform_title_container">
+				<h1 class="mailform_title">{$basic_formname}(確認)</h1>
 			</div>
 
-		</div>
+			<div class="mailform_explain">
+				<p>記入事項をご確認の上、問題がなければ「送信」をクリックしてください。</p>
+			</div>
 
-	</div>
+			<form method="post" action="./">
+				<table class="form_table" cellspacing="0">
+					{$form_data}
+				</table>
 
+				<div class="button_box">
+					<input type="submit" name="submit_button" value="戻る" class="submit_btn">
+					<input type="submit" name="submit_button" value="送信" class="submit_btn">
+				</div>
+			</form>
+
+			<div class="link_2_top_container">
+				<a href="{$basic_moveurl}">トップに戻る</a>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<p>&copy; 2025 シシワカ陶苑</p>
+	</footer>
 </body>
 
 </html>
