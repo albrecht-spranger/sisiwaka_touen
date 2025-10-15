@@ -183,6 +183,9 @@
 	place-items: center;
 }
 
+/* =========================================
+	作品詳細
+========================================= */
 .works_spec_container {
 	max-width: 800px;
 	margin-left: auto;

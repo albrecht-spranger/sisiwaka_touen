@@ -4,11 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{$basic_pagetitle}</title>
+	<link rel="stylesheet" href="https://ss953871.stars.ne.jp/sisiwaka_touen/css/reset.css">
+	<link type="text/css" rel="stylesheet" href="./css/form.css?{$update_time}" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Yuji+Syuku&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/form.css?{$update_time}" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kaisei+Tokumin&family=M+PLUS+2:wght@100..900&family=Zen+Antique&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
@@ -36,37 +39,40 @@
 		</div>
 	</header>
 
-	<div id="wrapper">
-		<div id="main">
+	<main>
+		<section class="mailform_section">
+			<div class="mailform_title_container">
+				<h1 class="mailform_title">{$basic_formname}</h1>
+			</div>
+
+			<div class="mailform_explain">
+				<p>以下のフォームに必要事項をご記入の上、「確認」をクリックしてください。<br /><span class="red">*</span>の付いている項目は必須項目です。<br />
+				</p>
+			</div>
+
+			<div class="red_txt">
+				{$form_error}
+			</div>
+
 			<form method="post" action="./">
-				<div class="section">
-					<h2 class="section__ttl">{$basic_formname}</h2>
-					<div class="section__body">
-						<div id="txt_explain">
-							<p>以下のフォームに必要事項をご記入の上、「確認」をクリックしてください。<br /><span class="red">*</span>の付いている項目は必須項目です。<br />
-							</p>
-						</div>
+				<table class="form_table" cellspacing="0">
+					{$form_data}
+				</table>
 
-						<div class="red_txt">
-							{$form_error}
-						</div>
-
-						<table class="table" cellspacing="0">
-							{$form_data}
-						</table>
-
-						<div class="button_box">
-							<input type="submit" name="submit_button" value="確認">
-						</div>
-					</div>
+				<div class="button_box">
+					<input type="submit" name="submit_button" value="確認" class="submit_btn">
 				</div>
 			</form>
 
-			<div class="button_box">
-				[<a href="{$basic_moveurl}">サイトへ戻る</a>]
+			<div class="link_2_top_container">
+				<a href="{$basic_moveurl}">サイトへ戻る</a>
 			</div>
-		</div>
-	</div>
+		</section>
+	</main>
+
+	<footer>
+		<p>&copy; 2025 シシワカ陶苑</p>
+	</footer>
 </body>
 
 </html>

@@ -20,7 +20,6 @@
 	border-bottom: 1px solid lightgoldenrodyellow;
 }
 
-
 /* ------------------------------
   ギャラリー
  ------------------------------ */
@@ -191,6 +190,7 @@
 	width: 20%;
 	border: 1px solid gainsboro;
 	background-color: #111111;
+	font-family: "M PLUS 2", sans-serif;
 	color: lightgoldenrodyellow;
 	font-size: 1.2rem;
 	text-align: center;
