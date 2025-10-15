@@ -1,1 +1,1 @@
-mysql -u root -p sisiwaka_touen < G:\マイドライブ\20250522_南柏\sisiwaka_touen\db\bkup_sisiwaka_touen.sql
+mysql -u root sisiwaka_touen < G:\マイドライブ\20250522_南柏\sisiwaka_touen\db\bkup_sisiwaka_touen.sql
