@@ -61,7 +61,7 @@ header a {
 }
 
 header h1 {
-    font-family: "Kaisei Tokumin", serif;
+    font-family: "Zen Antique", serif;
     color: lightgoldenrodyellow;
     font-style: normal;
     font-size: 2rem;
@@ -126,6 +126,15 @@ footer {
     text-align: center;
 }
 
+.mailform_section>form {
+    display: block;
+    /* 念のため明示 */
+    width: 100%;
+    /* 親幅いっぱい */
+    min-width: 0;
+    /* flex/grid の収まり対策 */
+}
+
 .form_table {
     width: 100%;
     margin-left: auto;
@@ -143,7 +152,7 @@ footer {
 
 .form_table th {
     width: 1%;
-	white-space: nowrap;
+    white-space: nowrap;
     font-family: "M PLUS 2", sans-serif;
     font-size: 1.2rem;
     color: lightgoldenrodyellow;
@@ -152,10 +161,12 @@ footer {
 }
 
 .form_table td {
-    width: 100%;
+    /* width: 100%; */
     max-width: 100%;
     font-size: 1.2rem;
     color: gainsboro;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 /* テキスト入力系をフル幅に */
@@ -212,7 +223,7 @@ footer {
 .link_2_top_container {
     text-decoration: underline;
     color: lightgoldenrodyellow;
-	font-family: "M PLUS 2", sans-serif;
+    font-family: "M PLUS 2", sans-serif;
     font-size: 1rem;
     text-align: right;
     margin-bottom: 80px;
