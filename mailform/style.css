@@ -16,24 +16,15 @@ main {
     padding: 32px;
 }
 
-/* ----------------------------------------------------------
+/* ===============================
     ヘッダ、フッタ
-------------------------------------------------------------- */
+=============================== */
 header,
 footer {
     max-width: 1200px;
     margin: auto;
     color: lightgoldenrodyellow;
     background-color: black;
-}
-
-.nav_font {
-    font-family: "M PLUS 2", serif;
-    font-weight: 400;
-    font-size: 1.6rem;
-    color: lightgoldenrodyellow;
-    margin-top: 16px;
-    margin-bottom: 32px;
 }
 
 header {
@@ -96,9 +87,9 @@ footer {
     font-family: "Zen Antique", serif;
 }
 
-/* ----------------------------------------------------------
+/* ===============================
     メインコンテンツ
-------------------------------------------------------------- */
+=============================== */
 .mailform_section {
     max-width: 720px;
     margin-right: auto;
@@ -183,7 +174,7 @@ footer {
     padding: 10px 12px;
 }
 
-.from_table td textarea {
+.form_table td textarea {
     min-height: 140px;
     resize: vertical;
     line-height: 1.6;
@@ -227,4 +218,138 @@ footer {
     font-size: 1rem;
     text-align: right;
     margin-bottom: 80px;
+}
+
+
+/* =============================
+	スマホ向け
+============================= */
+@media screen and (max-width: 768px) {
+
+    header,
+    footer {
+        max-width: 100%;
+        margin: 0;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    header {
+        height: 70px;
+        /* ★★★ */
+    }
+
+    .sisiwaka_touen_icon {
+        width: 24px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        margin-left: 4px;
+    }
+
+    .header_right_block {
+        gap: 12px;
+        /* ★★★ */
+    }
+
+    .minne_icon img {
+        height: 24px;
+    }
+
+    .instagram_icon img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .link_style {
+        font-size: 0.75rem;
+    }
+
+    footer {
+        height: 40px;
+        /* ★★★ */
+    }
+
+    /* ===============================
+        メインコンテンツ
+    =============================== */
+    .mailform_section {
+        width: 100%;
+        margin: 0;
+    }
+
+    .mailform_title {
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+    }
+
+    .mailform_explain {
+        line-height: 1.6;
+        font-size: 0.9rem;
+        margin-bottom: 32px;
+    }
+
+    .form_table,
+    .form_table tbody,
+    .form_table th,
+    .form_table tr,
+    .form_table td {
+        display: block;
+        width: 100% !important;
+        /* サービス側の固定幅を上書き */
+        box-sizing: border-box;
+    }
+
+    .form_table {
+        margin: 0 0 40px 0;
+        /* ★★★ */
+        table-layout: auto;
+        /* レイアウト安定 */
+    }
+
+    .form_table th,
+    .form_table td {
+        padding: 0;
+        text-align: left;
+    }
+
+    .form_table th {
+        font-size: 0.9rem;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    .form_table td {
+        font-size: 0.9rem;
+    }
+
+    /* テキスト入力系をフル幅に */
+    .form_table td input[type="text"],
+    .form_table td textarea {
+        padding: 4px 8px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form_table td textarea {
+        min-height: 80px;
+    }
+
+    .button_box {
+        margin-bottom: 40px;
+    }
+
+    /* submitボタン */
+    .submit_btn {
+        width: 20%;
+        font-size: 1.1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .link_2_top_container {
+        font-size: 0.9rem;
+        margin-bottom: 40px;
+    }
 }

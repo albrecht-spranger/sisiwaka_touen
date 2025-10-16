@@ -38,6 +38,7 @@
 	/* アスペクト比を保ったまま切り抜き */
 	object-position: center;
 	margin: 0 auto;
+	cursor: pointer;
 }
 
 /* 非アクティブ（左右）の画像 */
@@ -218,6 +219,19 @@
 	font-size: 0.9rem;
 }
 
+#spec_update_date {
+	margin-left: 0.5rem;
+}
+
+/* 編集画面へのリンク */
+#edit_link {
+	display: inline;
+}
+
+.non_edit {
+	display: none;
+}
+
 /* ------------------------------
   ログインモーダル
  ------------------------------ */
@@ -262,5 +276,53 @@
 	background-color: #cccccc;
 }
 
-/* スマホ向け（幅600px以下） */
-@media screen and (max-width: 600px) {}
+
+/* =============================
+	スマホ向け
+============================= */
+@media screen and (max-width: 768px) {
+
+	/* =========================================
+		作品詳細
+	========================================= */
+	.works_name_container {
+		margin-left: 0;
+		margin-right: 0;
+		margin-top: 32px;
+		margin-bottom: 0;
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	#works_name {
+		font-size: 1.2rem;
+	}
+
+	.works_spec_container {
+		max-width: 100%;
+		padding-left: 12px;
+		padding-right: 12px;
+		margin-left: 0;
+		margin-right: 0;
+		grid-template-columns: 1fr;
+		row-gap: 1rem;
+	}
+
+	.works_spec_container dt {
+		font-size: 1rem;
+		text-align: left;
+	}
+
+	.works_spec_container dd {
+		font-size: 1rem;
+	}
+
+	/* スマホでは編集画面に遷移しない */
+	#edit_link {
+		display: none;
+	}
+
+	.non_edit {
+		display: inline;
+	}
+}
