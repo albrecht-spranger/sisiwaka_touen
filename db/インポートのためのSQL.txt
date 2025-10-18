@@ -1,0 +1,54 @@
+LOAD DATA LOCAL INFILE '20240811_陶芸 - インポート用.csv'
+INTO TABLE artworks_import_raw
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY ''
+LINES TERMINATED BY '\n'
+(
+  @id,
+  @description_title,
+  @categories,
+  @description,
+  @name,
+  @spec,
+  @width,
+  @maxWidth,
+  @height,
+  @weight,
+  @capacity,
+  @technique0,
+  @technique1,
+  @technique2,
+  @clay,
+  @glaze,
+  @notes,
+  @in_stock,
+  @url,
+  @instagramUrl,
+  @completionDate,
+  @updateDate,
+  @valid
+)
+SET
+  id               = NULLIF(@id,''),
+  description_title= NULLIF(@description_title,''),
+  categories       = NULLIF(@categories,''),
+  description      = NULLIF(@description,''),
+  name             = NULLIF(@name,''),
+  spec             = NULLIF(@spec,''),
+  width            = NULLIF(@width,''),
+  maxWidth         = NULLIF(@maxWidth,''),
+  height           = NULLIF(@height,''),
+  weight           = NULLIF(@weight,''),
+  capacity         = NULLIF(@capacity,''),
+  technique0       = NULLIF(@technique0,''),
+  technique1       = NULLIF(@technique1,''),
+  technique2       = NULLIF(@technique2,''),
+  clay             = NULLIF(@clay,''),
+  glaze            = NULLIF(@glaze,''),
+  notes            = NULLIF(@notes,''),
+  in_stock         = NULLIF(@in_stock,''),
+  url              = NULLIF(@url,''),
+  instagramUrl     = NULLIF(@instagramUrl,''),
+  completionDate   = NULLIF(@completionDate,''),
+  updateDate       = NULLIF(@updateDate,''),
+  valid            = NULLIF(@valid,'');
