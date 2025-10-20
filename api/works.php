@@ -26,6 +26,7 @@ try {
 	$category = $_GET['category'] ?? [];
 	$techniques = $_GET['techniques'] ?? [];
 	$coloring = $_GET['coloring'] ?? [];
+	$is_stock = $_GET['is_stock'] ?? null;
 
 	// ====== DB接続 ======
 	$pdo = new PDO($dsn, $DB_USER, $DB_PASS, [
@@ -34,10 +35,7 @@ try {
 	]);
 
 	// ====== SQL組み立て ======
-	$sql = "
-        SELECT
-        a.id,
-        a.name,
+	$sql = "SELECT a.id, a.name,
         (
             SELECT am.image_url
             FROM artwork_media am
@@ -71,8 +69,7 @@ try {
 	// ⇒artwork_techniquesの中に、当該IDとtechnique列があるかどうかで当該行が有効か判定
 	if (count($techniques) > 0) {
 		$placeholders = implode(',', array_fill(0, count($techniques), '?'));
-		$sql .= "
-			AND EXISTS (
+		$sql .= "AND EXISTS (
 				SELECT 1
 				FROM artwork_techniques atc
 				WHERE atc.artwork_id = a.id
@@ -82,6 +79,11 @@ try {
 		";
 		$params = array_merge($params, $techniques);
 	}
+
+	// 在庫あり
+	if ($is_stock) {
+		$sql .= "AND a.in_stock = 1";
+	} 
 
 	$sql .= " ORDER BY a.id DESC";
 

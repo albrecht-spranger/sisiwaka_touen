@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 		return;
 	}
 
+	// 在庫ありのクリックイベント登録
+	const cb_stock = document.querySelector('input[name="is_stock"]').addEventListener('change', fetchWithCurrentForm);
+
 	// セッションストレージから検索条件を取得
 	const conditions = load_conditions();
 	// 検索フォームに反映
@@ -42,8 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function make_category_checkbox() {
 	const res = await fetch('/sisiwaka_touen/api/categories.php');
 	if (!res.ok) {
-		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
+		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}`);
 	}
+
 	const categories = await res.json();
 
 	const el_category = document.getElementById('checkbox_category');
@@ -72,8 +76,9 @@ async function make_category_checkbox() {
 async function make_techniques_checkbox() {
 	const res = await fetch('/sisiwaka_touen/api/techniques.php');
 	if (!res.ok) {
-		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
+		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}`);
 	}
+
 	const techniques = await res.json();
 
 	const el_techniques = document.getElementById('checkbox_techniques');
@@ -102,7 +107,7 @@ async function make_techniques_checkbox() {
 async function make_coloring_checkbox() {
 	const res = await fetch('/sisiwaka_touen/api/colorings.php');
 	if (!res.ok) {
-		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}: ${url} :: ${body_preview.slice(0, 200)}`);
+		throw new Error(`HTTP ERROR ${res.status} ${res.statusText}`);
 	}
 	const coloring = await res.json();
 	const el_coloring = document.getElementById('checkbox_coloring');
@@ -127,17 +132,19 @@ async function make_coloring_checkbox() {
 
 // セッションストレージから検索条件を復元
 function load_conditions() {
-    const category = JSON.parse(sessionStorage.getItem("search_category") || "[]");
-    const techniques = JSON.parse(sessionStorage.getItem("search_techniques") || "[]");
-    const coloring = JSON.parse(sessionStorage.getItem("search_coloring") || "[]");
-    return { category, techniques, coloring };
+	const category = JSON.parse(sessionStorage.getItem("search_category") || "[]");
+	const techniques = JSON.parse(sessionStorage.getItem("search_techniques") || "[]");
+	const coloring = JSON.parse(sessionStorage.getItem("search_coloring") || "[]");
+	const is_stock = JSON.parse(sessionStorage.getItem("search_is_stock") || false);
+	return { category, techniques, coloring, is_stock };
 }
 
 // セッションストレージに検索条件を保存
 function save_conditions(conditions) {
-    sessionStorage.setItem("search_category", JSON.stringify(conditions.category));
-    sessionStorage.setItem("search_techniques", JSON.stringify(conditions.techniques));
-    sessionStorage.setItem("search_coloring", JSON.stringify(conditions.coloring));
+	sessionStorage.setItem("search_category", JSON.stringify(conditions.category));
+	sessionStorage.setItem("search_techniques", JSON.stringify(conditions.techniques));
+	sessionStorage.setItem("search_coloring", JSON.stringify(conditions.coloring));
+	sessionStorage.setItem("search_is_stock", JSON.stringify(conditions.is_stock));
 }
 
 // 引数をもとにフォームに反映
@@ -151,9 +158,10 @@ function update_conditions(conditions) {
 	document.querySelectorAll('input[name="coloring[]"]').forEach(el => {
 		el.checked = conditions.coloring.includes(el.value);
 	});
+	document.querySelector('input[name="is_stock"]').checked = !!conditions.is_stock;
 }
 
-// フォームの現在値をconditions = { category[], techniques[], coloring[] } で取得
+// フォームの現在値をconditions = { category[], techniques[], coloring[], is_stock } で取得
 function get_conditions() {
 	const category = Array.from(document.querySelectorAll('input[name="category[]"]:checked'))
 		.map(el => el.value);
@@ -161,7 +169,9 @@ function get_conditions() {
 		.map(el => el.value);
 	const coloring = Array.from(document.querySelectorAll('input[name="coloring[]"]:checked'))
 		.map(el => el.value);
-	return { category, techniques, coloring };
+	const cb_stock = document.querySelector('input[name="is_stock"]');
+	const is_stock = !!(cb_stock && cb_stock.checked);
+	return { category, techniques, coloring, is_stock };
 }
 
 // conditions → URLSearchParams へ
@@ -170,6 +180,9 @@ function buildParams(conditions) {
 	conditions.category.forEach(v => p.append("category[]", v));
 	conditions.techniques.forEach(v => p.append("techniques[]", v));
 	conditions.coloring.forEach(v => p.append("coloring[]", v));
+	if (conditions.is_stock) {
+		p.append("is_stock", 1);
+	}
 	return p;
 }
 
@@ -177,6 +190,9 @@ function debounce(fn, wait = 400) {
 	let t;
 	return (...args) => { clearTimeout(t); t = setTimeout(() => fn.apply(null, args), wait); };
 }
+
+let lastData = [];
+window.addEventListener('resize', debounce(() => renderGallery(lastData), 200));
 
 // 現在のフォーム条件で fetch → 描画
 function fetchWithCurrentForm() {
@@ -194,9 +210,8 @@ function fetchWithCurrentForm() {
 			return res.json();
 		})
 		.then(data => {
+			lastData = data;
 			renderGallery(data);
-			// リサイズ時は最新データで再描画
-			window.onresize = () => renderGallery(data);
 		})
 		.catch(err => console.error('データ取得エラー:', err));
 }

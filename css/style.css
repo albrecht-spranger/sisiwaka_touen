@@ -161,6 +161,7 @@ footer {
 	white-space: nowrap;
 	overflow: hidden;
 	position: relative;
+	cursor: pointer;
 }
 
 /* 畳み込み時 */
