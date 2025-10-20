@@ -6,11 +6,11 @@ require_once __DIR__ . '/dbConnect.php';
 // DB 取得
 try {
 	$pdo = getDbConnection();
-	$stmt = $pdo->query("SELECT a.id, a.name, a.category_slug, a.coloring_slug, in_stock,
-        GROUP_CONCAT(DISTINCT at.technique_slug ORDER BY at.technique_slug) AS technique_slugs,
+	$stmt = $pdo->query("SELECT a.id, a.name, a.category, a.coloring, in_stock,
+        GROUP_CONCAT(DISTINCT at.techniques_slug ORDER BY at.techniques_slug) AS technique_slugs,
         m.image_url AS thumbnail_url
         FROM artworks AS a
-        LEFT JOIN artwork_technique AS at ON at.artwork_id = a.id
+        LEFT JOIN artwork_techniques AS at ON at.artwork_id = a.id
         LEFT JOIN (SELECT m.artwork_id, MIN(m.id) AS min_id
             FROM artwork_media AS m
             WHERE m.valid = 1 AND m.kind  = 'image'
@@ -20,7 +20,7 @@ try {
         LEFT JOIN artwork_media AS m
             ON m.id = mm.min_id
         WHERE a.valid = 1
-        GROUP BY a.id, a.name, a.category_slug, a.coloring_slug, m.image_url, m.alt_ja
+        GROUP BY a.id, a.name, a.category, a.coloring, m.image_url, m.alt_ja
         ORDER BY a.id DESC;
 	");
 	$all_products = $stmt->fetchAll();
@@ -90,8 +90,8 @@ unset($product);
 			<?php foreach ($all_products as $product): ?>
 				<?php
 				// Isotopeのクラスに使うslug（半角小文字、空白なし推奨）
-				$cat  = htmlspecialchars($product['category_slug']);
-				$col  = htmlspecialchars($product['coloring_slug']);
+				$cat  = htmlspecialchars($product['category']);
+				$col  = htmlspecialchars($product['coloring']);
 				$tech = '';
 				foreach ($product['techniques'] as $technique_slug) {
 					$tech .= htmlspecialchars($technique_slug);

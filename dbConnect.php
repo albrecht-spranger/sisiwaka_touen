@@ -11,7 +11,7 @@ function getDbConnection(): PDO
 	}
 
 	// .envファイルの読み込み
-	$envPath = dirname(__DIR__) . '/api/.env';
+	$envPath = __DIR__ . '/api/.env';
 	if (!is_readable($envPath)) {
 		throw new RuntimeException('.env file not found: ' . $envPath);
 	}
@@ -24,8 +24,8 @@ function getDbConnection(): PDO
 	// 必要な値を取得（存在チェックも兼ねる）
 	$host = $env['DB_HOST'] ?? 'localhost';
 	$name = $env['DB_NAME'] ?? '';
-	$user = $env['DB_USER'] ?? '';
-	$pass = $env['DB_PASS'] ?? '';
+	$user = $env['DB_READER'] ?? '';
+	$pass = $env['DB_READER_PW'] ?? '';
 
 	// passは設定されていないケースもあるのでチェックしない
 	if ($name === '' || $user === '') {
