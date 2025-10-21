@@ -1,5 +1,54 @@
 @charset "UTF-8";
 
+
+/* =======================================
+    isotope.js
+======================================= */
+.grid {
+	margin: 0 auto;
+}
+
+.grid-item {
+	width: 220px;
+	padding: 12px;
+	box-sizing: border-box;
+}
+
+.card {
+	background: #fff;
+	overflow: hidden;
+	background-color: transparent;
+}
+
+.thumb img {
+	display: block;
+	border-radius: 8px;
+	width: 100%;
+	height: 300px;
+	box-shadow: 0 4px 12px rgba(255, 255, 255, .2);
+	object-fit: cover;
+	display: block;
+}
+
+.caption {
+	padding: 8px 10px;
+	font-size: 1rem;
+	text-align: center;
+}
+
+#artworks_gallery.is_loading {
+	opacity: 0;
+}
+
+#artworks_gallery {
+	transition: opacity .8s;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* =======================================
+    isotope.js以外
+======================================= */
 .back_to_index {
 	text-align: right;
 	display: block;
@@ -114,57 +163,86 @@
 	border-radius: 1rem;
 }
 
-/* ギャラリーを CSS Grid でタイル状に */
-#gallery {
-	display: grid;
-	grid-gap: 10px;
-	/* padding: 10px; */
-	/* PC: 5列、スマホ: 3列 */
-	grid-template-columns: repeat(5, 1fr);
-	margin-top: 16px;
-}
-
-/* 各アイテムのスタイル */
-.grid-item {
-	position: relative;
-	overflow: hidden;
-	cursor: pointer;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-	opacity: 1;
-	transition: opacity 0.5s ease-in;
-}
-
-.grid-item .works_img_wrapper {
-	border-radius: 8px;
-	/* 角丸 */
-	overflow: hidden;
-	/* はみ出しを隠す */
-}
-
-.grid-item img {
-	aspect-ratio: 2 / 3;
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
+/* =======================================
+	ローディングスピナー
+======================================= */
+#loading_spinner {
+	color: #ffffff;
 	display: block;
-	transition: transform 0.2s ease-in;
+	font-size: 45px;
+	text-indent: -9999em;
+	overflow: hidden;
+	width: 1em;
+	height: 1em;
+	border-radius: 50%;
+	position: relative;
+	transform: translateZ(0);
+	animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.grid-item:hover img {
-	transform: scale(1.05);
+@keyframes mltShdSpin {
+	0% {
+		box-shadow: 0 -0.83em 0 -0.4em,
+			0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+			0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+	}
+
+	5%,
+	95% {
+		box-shadow: 0 -0.83em 0 -0.4em,
+			0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+			0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+	}
+
+	10%,
+	59% {
+		box-shadow: 0 -0.83em 0 -0.4em,
+			-0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em,
+			-0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+	}
+
+	20% {
+		box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+			-0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+			-0.749em -0.34em 0 -0.477em;
+	}
+
+	38% {
+		box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+			-0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+			-0.82em -0.09em 0 -0.477em;
+	}
+
+	100% {
+		box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+			0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+	}
 }
 
-.grid-item.hidden {
-	opacity: 0;
+@keyframes round {
+	0% {
+		transform: rotate(0deg)
+	}
+
+	100% {
+		transform: rotate(360deg)
+	}
 }
 
-.caption_style {
-	font-size: 0.9rem;
-	margin-top: 0.5rem;
-}
 
+
+/* =======================================
+	スマホ
+======================================= */
 @media (max-width: 768px) {
-	#gallery {
-		grid-template-columns: repeat(3, 1fr);
+
+	/* =======================================
+    	isotope.js
+	======================================= */
+	.grid-item {
+		width: 120px;
+		padding: 4px;
 	}
 }
