@@ -71,7 +71,7 @@ CREATE TABLE `artwork_techniques` (
 
 LOCK TABLES `artwork_techniques` WRITE;
 /*!40000 ALTER TABLE `artwork_techniques` DISABLE KEYS */;
-INSERT INTO `artwork_techniques` VALUES (1,'shinogi',1),(3,'shinogi',1),(7,'shinogi',1),(8,'shinogi',1),(20,'shinogi',1),(21,'nerikomi',1),(21,'shinogi',1),(22,'nerikomi',1),(22,'shinogi',1),(25,'shinogi',1),(26,'nerikomi',1),(26,'shinogi',1),(27,'nerikomi',1),(27,'shinogi',1),(28,'nerikomi',1),(28,'shinogi',1),(29,'nerikomi',1),(29,'shinogi',1),(30,'nerikomi',1),(30,'shinogi',1),(33,'nerikomi',1),(33,'shinogi',1),(34,'nerikomi',1),(34,'shinogi',1),(35,'nerikomi',1),(35,'shinogi',1),(36,'nerikomi',1),(36,'shinogi',1),(37,'nerikomi',1),(37,'shinogi',1),(38,'nerikomi',1),(38,'shinogi',1),(38,'tebinari',1),(39,'nerikomi',1),(39,'shinogi',1),(40,'nerikomi',1),(40,'shinogi',1),(42,'nerikomi',1),(42,'shinogi',1),(42,'tebinari',1),(43,'nerikomi',1),(43,'shinogi',1),(44,'nerikomi',1),(44,'shinogi',1),(45,'nerikomi',1),(45,'shinogi',1),(45,'tebinari',1),(50,'nerikomi',1),(50,'shinogi',1),(51,'nerikomi',1),(51,'shinogi',1),(52,'nerikomi',1),(52,'shinogi',1),(53,'nerikomi',1),(53,'shinogi',1),(54,'nerikomi',1),(54,'shinogi',1),(55,'nerikomi',1),(55,'shinogi',1);
+INSERT INTO `artwork_techniques` VALUES (1,'shinogi',1),(3,'shinogi',1),(7,'shinogi',1),(8,'shinogi',1),(20,'shinogi',1),(21,'nerikomi',1),(21,'shinogi',1),(22,'nerikomi',1),(22,'shinogi',1),(25,'shinogi',1),(26,'nerikomi',1),(26,'shinogi',1),(27,'nerikomi',1),(27,'shinogi',1),(28,'nerikomi',1),(28,'shinogi',1),(29,'nerikomi',1),(29,'shinogi',1),(30,'nerikomi',1),(30,'shinogi',1),(33,'nerikomi',1),(33,'shinogi',1),(34,'nerikomi',1),(34,'shinogi',1),(35,'nerikomi',1),(35,'shinogi',1),(36,'nerikomi',1),(36,'shinogi',1),(37,'nerikomi',1),(37,'shinogi',1),(38,'nerikomi',1),(38,'shinogi',1),(38,'tebineri',1),(39,'nerikomi',1),(39,'shinogi',1),(40,'nerikomi',1),(40,'shinogi',1),(42,'nerikomi',1),(42,'shinogi',1),(42,'tebineri',1),(43,'nerikomi',1),(43,'shinogi',1),(44,'nerikomi',1),(44,'shinogi',1),(45,'nerikomi',1),(45,'shinogi',1),(45,'tebineri',1),(50,'nerikomi',1),(50,'shinogi',1),(51,'nerikomi',1),(51,'shinogi',1),(52,'nerikomi',1),(52,'shinogi',1),(53,'nerikomi',1),(53,'shinogi',1),(54,'nerikomi',1),(54,'shinogi',1),(55,'nerikomi',1),(55,'shinogi',1);
 /*!40000 ALTER TABLE `artwork_techniques` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +268,7 @@ CREATE TABLE `techniques` (
 
 LOCK TABLES `techniques` WRITE;
 /*!40000 ALTER TABLE `techniques` DISABLE KEYS */;
-INSERT INTO `techniques` VALUES ('nerikomi','練り込み','Nerikomi',1,1),('shinogi','しのぎ','Shinogi',2,1),('tebinari','手びねり','Handbuilding',3,1);
+INSERT INTO `techniques` VALUES ('nerikomi','練り込み','Nerikomi',1,1),('shinogi','しのぎ','Shinogi',2,1),('tebineri','手びねり','Handbuilding',3,1);
 /*!40000 ALTER TABLE `techniques` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-20 15:26:38
+-- Dump completed on 2025-10-21 15:30:12
