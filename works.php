@@ -2,6 +2,7 @@
 // 作品一覧 w/Isotope
 declare(strict_types=1);
 require_once __DIR__ . '/db_connect.php';
+require_once __DIR__ . '/common_func.php';
 
 // DBから情報取得
 try {
@@ -68,7 +69,7 @@ unset($product);
 
 <head>
 	<meta charset="UTF-8">
-	<title>シシワカ陶苑 - 作品一覧</title>
+	<title>シシワカ陶苑：作品一覧</title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/works.css">
@@ -199,8 +200,8 @@ unset($product);
 			<?php foreach ($all_products as $product): ?>
 				<?php
 				// Isotopeのクラスに使うslug（半角小文字、空白なし推奨）
-				$cat  = htmlspecialchars($product['category'] ?? '', ENT_QUOTES, 'UTF-8');
-				$col  = htmlspecialchars($product['coloring'] ?? '', ENT_QUOTES, 'UTF-8');
+				$cat  = h($product['category']);
+				$col  = h($product['coloring']);
 				$tech = implode(' ', array_map('htmlspecialchars', $product['techniques']));
 				if ($product['in_stock']) {
 					$in_stock = 'in_stock';
@@ -208,13 +209,13 @@ unset($product);
 					$in_stock = '';
 				}
 				?>
-				<a href="detail.php?id=<?= htmlspecialchars((string) $product['id']) ?>"
+				<a href="detail.php?id=<?= h((string) $product['id']) ?>"
 					class="grid-item <?= $cat ?> <?= $tech ?> <?= $col ?> <?= $in_stock ?>">
 					<figure class="card">
 						<div class="thumb">
-							<img src="<?= htmlspecialchars($product['thumbnail_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+							<img src="<?= h($product['thumbnail_url']) ?>" alt="<?= h($product['name']) ?>">
 						</div>
-						<figcaption class="caption"><?= htmlspecialchars($product['name']) ?></figcaption>
+						<figcaption class="caption"><?= h($product['name']) ?></figcaption>
 					</figure>
 				</a>
 			<?php endforeach; ?>
