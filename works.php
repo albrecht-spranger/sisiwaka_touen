@@ -199,8 +199,8 @@ unset($product);
 			<?php foreach ($all_products as $product): ?>
 				<?php
 				// Isotopeのクラスに使うslug（半角小文字、空白なし推奨）
-				$cat  = htmlspecialchars($product['category']);
-				$col  = htmlspecialchars($product['coloring']);
+				$cat  = htmlspecialchars($product['category'] ?? '', ENT_QUOTES, 'UTF-8');
+				$col  = htmlspecialchars($product['coloring'] ?? '', ENT_QUOTES, 'UTF-8');
 				$tech = implode(' ', array_map('htmlspecialchars', $product['techniques']));
 				if ($product['in_stock']) {
 					$in_stock = 'in_stock';

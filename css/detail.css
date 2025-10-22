@@ -214,9 +214,22 @@
 	text-align: justify;
 }
 
+#spec_completion_date,
+#spec_online_shop,
+#spec_instagram_url {
+	white-space: normal;
+	line-height: 1;
+}
+
+#spec_online_shop img,
+#spec_instagram_url img {
+	vertical-align: text-bottom;
+}
+
 .works_spec_container dd.spec_update_date_style {
 	text-align: right;
 	font-size: 0.9rem;
+	white-space: normal;
 }
 
 #spec_update_date {

@@ -63,6 +63,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	});
 
+	// 作品詳細を項目ごとに充てていく
+	await make_details();
+	// ⇒make_detailsは非同期。画像が出そろってからswiper初期化に進むようawait
+
 	//
 	// swiper作成
 	//
@@ -98,6 +102,110 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 作品詳細を項目ごとに充てていく
 //
 async function make_details() {
+	// 詳細と画像一覧をDBから取得
+	let data = {};
+	try {
+		const res = await fetch(`/sisiwaka_touen/api/detail.php?id=${encodeURIComponent(id)}`)
+		data = await res.json();
+	} catch (error) {
+		console.error("作品情報取得エラー:", error);
+	}
+
+	// 作品タイトル
+	document.getElementById('works_name').textContent = data.description_title ?? 'タイトル未定';
+
+	// 銘
+	document.getElementById('spec_name').textContent = data.name ?? '(なし)';
+
+	// 説明
+	document.getElementById('spec_description').textContent = data.description ?? '(なし)';
+
+	// 用途
+	document.getElementById('spec_category').textContent = data.category ?? '(未定義)';
+
+	// サイズ
+	document.getElementById('spec_spec').textContent = data.spec ?? '(不明)';
+
+	// 技法
+	const el_techniques = document.getElementById('spec_techniques');
+	if (Array.isArray(data.techniques) && data.techniques.length > 0) {
+		el_techniques.textContent = data.techniques.join('、');
+	} else {
+		el_techniques.textContent = '(未定義)';
+	}
+
+	// 色合い
+	document.getElementById('spec_coloring').textContent = data.coloring ?? '(未定義)';
+
+	// 粘土
+	document.getElementById('spec_clay').textContent = data.clay ?? '(不明)';
+
+	// 釉薬
+	document.getElementById('spec_glaze').textContent = data.glaze ?? '(不明)';
+
+	// 補足
+	const hdNote = document.getElementById('spec_notes');
+	if (data.note) {
+		hdNote.textContent = data.note;
+	} else {
+		const dt = hdNote.previousElementSibling;
+		if (dt && dt.tagName.toLowerCase() === 'dt') {
+			dt.remove();
+		}
+		hdNote.remove();
+	}
+
+	// Instagram
+	const el_instagram_url = document.getElementById('spec_instagram_url');
+	if (data.instagram_url) {
+		const link = document.createElement('a');
+		link.href = data.instagram_url;
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';     // セキュリティ対策
+
+		const img = document.createElement('img');
+		img.src = './images/Instagram_Glyph_Gradient.png';
+		img.alt = 'Instagramへ';
+		img.loading = 'lazy';
+
+		// 3. <a> の中に <img> を入れて、<dd> に追加
+		el_instagram_url.textContent = '';
+		link.appendChild(img);
+		el_instagram_url.appendChild(link);
+		el_instagram_url.classList.add('instagram_icon');
+	}
+
+	// 完成日
+	document.getElementById('spec_completion_date').textContent = timestamp2YYYYMD(data.completion_date);
+
+	// 更新日
+	document.getElementById('spec_update_date').textContent = timestamp2YYYYMD(data.update_date);
+
+	// オンラインショップURL
+	const el_url = document.getElementById('spec_online_shop');
+	if (data.in_stock === 0 || !data.shop_url) {
+		el_url.textContent = '(sold out)';
+	} else {
+		const link = document.createElement('a');
+		link.href = data.shop_url;
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';     // セキュリティ対策
+
+		const img = document.createElement('img');
+		img.src = './images/minne_logo_vertical.png';
+		img.alt = 'オンラインショップへ';
+		img.loading = 'lazy';
+
+		// 3. <a> の中に <img> を入れて、<dd> に追加
+		el_url.textContent = '';
+		link.appendChild(img);
+		el_url.appendChild(link);
+		el_url.classList.add('minne_icon');
+	}
+
+	// Swiperのための画像一覧作成
+	renderMedia(data);
+
 	//
 	// lightbox：スライダー画像をクリックしたら大きな画像を開く
 	//
@@ -237,6 +345,36 @@ async function make_details() {
 		videoEl.style.display = 'none';
 		videoEl.classList.remove('show', 'closing');
 	}
+}
+
+//
+// Swiperのための画像一覧を作る
+//
+function renderMedia(data) {
+	const container = document.getElementById("swiper_slide_holder");
+	data.media.forEach((item) => {
+		const el_div = document.createElement("div");
+		el_div.classList.add("swiper-slide");
+		const el_media = document.createElement("img");
+		el_media.loading = "lazy";  // 画像多めでも安心
+		el_media.src = item.image_url;
+		el_media.alt = item.alt_ja;
+		if (item.video_url != null) {
+			el_media.dataset.type = "video";
+			el_media.dataset.video_src = item.video_url;
+		}
+		el_div.appendChild(el_media);
+		container.appendChild(el_div);
+	});
+}
+
+function timestamp2YYYYMD(date) {
+	const d = new Date(date);
+	const year = d.getFullYear();
+	const month = d.getMonth() + 1;
+	const day = d.getDate();
+	const formatted = `${year}/${month}/${day}`;
+	return formatted;
 }
 
 //
