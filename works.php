@@ -1,11 +1,11 @@
 <?php
 // 作品一覧 w/Isotope
 declare(strict_types=1);
-require_once __DIR__ . '/dbConnect.php';
+require_once __DIR__ . '/db_connect.php';
 
 // DBから情報取得
 try {
-	$pdo = getDbConnection();
+	$pdo = get_db_connection();
 
 	// 作品一覧取得
 	$stmt = $pdo->query("SELECT a.id, a.name, a.category, a.coloring, in_stock,
@@ -208,7 +208,7 @@ unset($product);
 					$in_stock = '';
 				}
 				?>
-				<a href="detail.html?id=<?= htmlspecialchars((string) $product['id']) ?>"
+				<a href="detail.php?id=<?= htmlspecialchars((string) $product['id']) ?>"
 					class="grid-item <?= $cat ?> <?= $tech ?> <?= $col ?> <?= $in_stock ?>">
 					<figure class="card">
 						<div class="thumb">

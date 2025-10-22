@@ -209,16 +209,13 @@
 .works_spec_container dd {
 	font-size: 1.2rem;
 	margin: 0;
-	white-space: pre-line;
+	white-space: normal;
 	line-height: 1.8;
 	text-align: justify;
 }
 
-#spec_completion_date,
-#spec_online_shop,
-#spec_instagram_url {
-	white-space: normal;
-	line-height: 1;
+.works_spec_container dd.pre_line {
+	white-space: pre-line;
 }
 
 #spec_online_shop img,
@@ -229,7 +226,6 @@
 .works_spec_container dd.spec_update_date_style {
 	text-align: right;
 	font-size: 0.9rem;
-	white-space: normal;
 }
 
 #spec_update_date {
@@ -246,48 +242,31 @@
 }
 
 /* ------------------------------
-  ログインモーダル
+	ギャラリー(編集)
  ------------------------------ */
-#login_modal_wrapper {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.5);
-	align-items: center;
-	justify-content: center;
+#media_gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 12px;
+	margin-top: 64px;
+	margin-bottom: 64px;
 }
 
-.login_modal {
-	background: #fff;
-	padding: 20px;
+.media_gallery_card {
+	border: 1px solid gainsboro;
 	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-}
-
-.login_modal h2 {
-	font-size: 2rem;
-	font-weight: 600;
+	padding: 8px;
 	text-align: center;
 }
 
-.login_modal label {
-	display: block;
-	margin-top: 16px;
+.media_gallery_card img {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	/* 正方形を維持 */
+	object-fit: cover;
+	border-radius: 6px;
 }
 
-.login_modal button {
-	display: block;
-	margin-top: 16px;
-	border: 1px solid #000000;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 6px 12px;
-	background-color: #cccccc;
-}
 
 
 /* =============================
@@ -330,7 +309,9 @@
 		font-size: 1rem;
 	}
 
-	/* スマホでは編集画面に遷移しない */
+	/* =============================
+	編集画面はスマホでは使わない。遷移もしない
+	============================= */
 	#edit_link {
 		display: none;
 	}

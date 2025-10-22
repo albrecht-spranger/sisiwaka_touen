@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "シシワカ陶苑バックヤード"
+AuthUserFile "C:/xampp/auth/.htpasswd"
+Require valid-user

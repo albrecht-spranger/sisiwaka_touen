@@ -1,8 +1,8 @@
 <?php
-// app/dbConnect.php
+// app/db_connect.php
 declare(strict_types=1);
 
-function getDbConnection(): PDO
+function get_db_connection(): PDO
 {
 	// pdoを使いまわす。既に存在すれば、そのまま返す
 	static $pdo = null;

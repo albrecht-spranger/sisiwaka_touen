@@ -2,7 +2,8 @@
 // 作品詳細
 
 declare(strict_types=1);
-require_once __DIR__ . '/dbConnect.php';
+require_once __DIR__ . '/db_connect.php';
+require_once __DIR__ . '/common_func.php';
 
 // id バリデーション
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -14,7 +15,7 @@ if ($id === false || $id === null) {
 
 // DBから情報取得
 try {
-	$pdo = getDbConnection();
+	$pdo = get_db_connection();
 
 	// ====== 作品本体 ======
 	$sql_artwork = "SELECT a.*, c.label_ja AS category, clr.label_ja AS coloring
@@ -61,7 +62,7 @@ try {
 
 <head>
 	<meta charset="UTF-8">
-	<title>シシワカ陶苑 - 作品詳細</title>
+	<title>シシワカ陶苑：<?= h($artwork['description_title']) ?></title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/detail.css">
@@ -112,7 +113,7 @@ try {
 		================================= -->
 		<section>
 			<div class="works_name_container">
-				<h1 id="works_name"><?= $artwork['description_title'] ?? 'タイトル未定' ?></h1>
+				<h1 id="works_name"><?= h($artwork['description_title'], 'タイトル未定') ?></h1>
 			</div>
 
 			<!-- Swiperによるカルーセル(スライダー) -->
@@ -121,7 +122,12 @@ try {
 					<div class="swiper-wrapper" id="swiper_slide_holder">
 						<?php foreach ($media_rows as $media): ?>
 							<div class="swiper-slide">
-								<img loading="lazy" src="<?= $media['image_url'] ?>" alt="<?= $media['alt_ja'] ?>">
+								<img loading="lazy" src="<?= h($media['image_url']) ?>"
+									alt="<?= h($media['alt_ja']) ?>"
+									<?php if ($media['video_url'] !== null): ?>
+										data-type="video" data-video_src="<?= h($media['video_url']) ?>"
+									<?php endif; ?>
+								/>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -136,30 +142,30 @@ try {
 			<!-- 作品説明 -->
 			<dl class="works_spec_container">
 				<dt>銘</dt>
-				<dd id="spec_name"><?= htmlspecialchars($artwork['name'] ?? '(銘)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_name"><?= h($artwork['name'], '(銘)') ?></dd>
 				<dt>用途</dt>
-				<dd id="spec_category"><?= htmlspecialchars($artwork['category'] ?? '(用途)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_category"><?= h($artwork['category'], '(用途)') ?></dd>
 				<dt>説明</dt>
-				<dd id="spec_description"><?= htmlspecialchars($artwork['description'] ?? '(説明)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_description" class="pre_line"><?= h($artwork['description'], '(説明)') ?></dd>
 				<dt>サイズ</dt>
-				<dd id="spec_spec"><?= htmlspecialchars($artwork['spec'] ?? '(サイズ)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_spec" class="pre_line"><?= h($artwork['spec'], '(サイズ)') ?></dd>
 				<dt>技法</dt>
-				<dd id="spec_techniques"><?= htmlspecialchars($techniques ? implode(', ', $techniques) : '技法なし', ENT_QUOTES, 'UTF-8') ?>(技法)</dd>
+				<dd id="spec_techniques"><?= h($techniques ? implode(', ', $techniques) : '(技法)') ?></dd>
 				<dt>色合い</dt>
-				<dd id="spec_coloring"><?= htmlspecialchars($artwork['coloring'] ?? '(色合い)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_coloring"><?= h($artwork['coloring'], '(色合い)') ?></dd>
 				<dt>粘土</dt>
-				<dd id="spec_clay"><?= htmlspecialchars($artwork['clay'] ?? '(粘土)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_clay" class="pre_line"><?= h($artwork['clay'], '(粘土)') ?></dd>
 				<dt>釉薬</dt>
-				<dd id="spec_glaze"><?= htmlspecialchars($artwork['glaze'] ?? '(釉掛け)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_glaze" class="pre_line"><?= h($artwork['glaze'], '(釉掛け)') ?></dd>
 				<dt>補足</dt>
-				<dd id="spec_notes"><?= htmlspecialchars($artwork['coloring'] ?? '(補足)', ENT_QUOTES, 'UTF-8') ?></dd>
+				<dd id="spec_notes" class="pre_line"><?= h($artwork['coloring'], '(補足)') ?></dd>
 				<dt>完成日</dt>
 				<dd id="spec_completion_date">
 					<?php
 					$completion_date = $artwork['completion_date'] ?? null;
 					if ($completion_date) {
 						$formatted_date = (new DateTime($completion_date))->format('Y/n/j');
-						echo htmlspecialchars($formatted_date);
+						echo h($formatted_date);
 					} else {
 						echo '―';
 					}
@@ -170,7 +176,7 @@ try {
 					<?php if (!$artwork['instagram_url']): ?>
 						―
 					<?php else: ?>
-						<a href="<?= htmlspecialchars($artwork['instagram_url']) ?>" target="_blank" rel="noopener noreferrer">
+						<a href="<?= h($artwork['instagram_url']) ?>" target="_blank" rel="noopener noreferrer">
 							<img src="images/Instagram_Glyph_Gradient.png" loading="lazy" alt="Instagramへ">
 						</a>
 					<?php endif; ?>
@@ -180,20 +186,20 @@ try {
 					<?php if ($artwork['in_stock'] === 0 || !$artwork['shop_url']): ?>
 						(sold out)
 					<?php else: ?>
-						<a href="<?= htmlspecialchars($artwork['shop_url']) ?>" target="_blank" rel="noopener noreferrer">
+						<a href="<?= h($artwork['shop_url']) ?>" target="_blank" rel="noopener noreferrer">
 							<img src="images/minne_logo_vertical.png" loading="lazy" alt="オンラインショップへ">
 						</a>
 					<?php endif; ?>
 				</dd>
 				<dt></dt>
 				<dd class="spec_update_date_style">
-					(記事<a href="edit.html" id="edit_link">更新</a><span class="non_edit">更新</span>
+					(記事<a href="admin/edit.php?id=<?= h((string) $artwork['id']) ?>" id="edit_link">更新</a><span class="non_edit">更新</span>
 					<span id="spec_update_date">
 						<?php
 						$update_date = $artwork['update_date'] ?? null;
 						if ($update_date) {
 							$formatted_date = (new DateTime($update_date))->format('Y/n/j');
-							echo htmlspecialchars($formatted_date);
+							echo h($formatted_date);
 						} else {
 							echo '―';
 						}
@@ -203,24 +209,6 @@ try {
 			</dl>
 		</section>
 	</main>
-
-	<div id="login_modal_wrapper">
-		<div class="login_modal">
-			<h2>ログイン</h2>
-			<form id="login_form">
-				<label>
-					ID：<br>
-					<input type="text" name="id" required>
-				</label>
-				<label>
-					パスワード：<br>
-					<input type="password" name="password" required>
-				</label>
-				<button type="submit">ログイン</button>
-				<button type="button" id="login_cancel_btn">キャンセル</button>
-			</form>
-		</div>
-	</div>
 
 	<footer>
 		<p>&copy; 2025 シシワカ陶苑</p>

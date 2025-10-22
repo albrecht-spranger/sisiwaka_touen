@@ -1,68 +1,4 @@
-// 編集画面へのログインのための変数
-const el_login_modal_wrapper = document.getElementById('login_modal_wrapper');
-const el_login_form = document.getElementById('login_form');
-const el_login_cancel_btn = document.getElementById('login_cancel_btn');
-
-// 作品IDはグローバル変数に
-var id;
-
-//
-// メイン
-//
-document.addEventListener('DOMContentLoaded', async () => {
-	// ─── URL パラメータから id を取得 ───
-	const params = new URLSearchParams(window.location.search);
-	id = params.get('id');
-	if (!id) {
-		console.error('作品IDが指定されていません');
-		return;
-	}
-
-	// 編集画面へのリンクのイベント
-	const el_edit_link = document.getElementById('edit_link');
-	el_edit_link.addEventListener('click', async (e) => {
-		e.preventDefault();
-		// ログインチェック（サーバAPI）
-		const res = await fetch('/sisiwaka_touen/api/session_status.php');
-		const data = await res.json();
-		if (data.logged_in) {
-			window.location.href = `edit.html?id=${encodeURIComponent(id)}`;
-		} else {
-			show_modal();
-		}
-	});
-
-	// ログインダイアログのキャンセルボタンにイベント登録
-	el_login_cancel_btn.addEventListener('click', hide_modal);
-
-	// ログインダイアログのログインボタンのイベント
-	el_login_form.addEventListener('submit', async (e) => {
-		e.preventDefault();
-		const form = new FormData(el_login_form);
-		const payload = { id: form.get('id'), password: form.get('password') };
-
-		try {
-			const res = await fetch('/sisiwaka_touen/api/login.php', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
-			});
-			const data = await res.json();
-			if (res.ok && data.ok) {
-				hide_modal();
-				window.location.href = `edit.html?id=${encodeURIComponent(id)}`;
-			} else {
-				alert(data.error || 'ログインに失敗しました');
-				hide_modal();
-			}
-		} catch (err) {
-			// fetch失敗や通信エラー時
-			console.error(err);
-			alert('サーバに接続できませんでした。ネットワーク状態を確認してください。');
-			hide_modal();
-		}
-	});
-
+document.addEventListener('DOMContentLoaded', () => {
 	//
 	// swiper作成
 	//
@@ -92,12 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			prevEl: ".swiper-button-prev",
 		},
 	});
-});
 
-//
-// 作品詳細を項目ごとに充てていく
-//
-async function make_details() {
 	//
 	// lightbox：スライダー画像をクリックしたら大きな画像を開く
 	//
@@ -237,16 +168,4 @@ async function make_details() {
 		videoEl.style.display = 'none';
 		videoEl.classList.remove('show', 'closing');
 	}
-}
-
-//
-// 編集画面への遷移＝ログイン関連処理
-//
-function show_modal() {
-	el_login_modal_wrapper.style.display = 'flex';
-	el_login_form.id.focus();
-}
-
-function hide_modal() {
-	el_login_modal_wrapper.style.display = 'none';
-}
+});
