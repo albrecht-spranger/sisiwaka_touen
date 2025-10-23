@@ -76,11 +76,8 @@
 	cursor: pointer;
 }
 
-/* 検索条件 */
-#active_chips {
-	flex: 1 1 auto;
-	display: flex;
-	gap: 1rem;
+#search_toggle_btn:hover {
+	color: lightgoldenrodyellow;
 }
 
 /* 検索パネル */

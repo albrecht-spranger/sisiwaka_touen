@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		initLayout: false
 	});
 
+	// ===== フィルタUIの例（用途OR × 技法OR × 色合いOR × 在庫AND）=====
+	el_search_form = document.getElementById('search_form');
+	// 何かが変わったら即反映するため、フォームにイベント登録
+	el_search_form.addEventListener('change', applyFilter);
+
+	// セッションストレージから検索条件を取得
+	const conditions = load_conditions();
+	// 検索フォームに反映
+	update_conditions(conditions);
+
 	// 画像が読み終わってから最終レイアウト
 	// imagesLoaded(grid, () => iso.layout());
 	imagesLoaded(grid, function () {
@@ -44,19 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		grid.classList.remove('is_loading');
 		document.getElementById('loading_spinner')?.remove();
 	});
-
-	// ===== フィルタUIの例（用途OR × 技法OR × 色合いOR × 在庫AND）=====
-	el_search_form = document.getElementById('search_form');
-
-	// 何かが変わったら即反映するため、フォームにイベント登録
-	el_search_form.addEventListener('change', applyFilter);
-
-	// 初回適用（保存復元するならここで読む）
-	// applyFilter();
 });
 
-// フィルタリング文字列を作り、Isotopeに渡す
+// 検索条件を画面から取得し、反映
 function applyFilter() {
+	// 検索条件を画面から取得し、セッションストレージに保存
+	const conditions = get_conditions();
+	save_conditions(conditions);
+
+	// 検索条件を画面から取得し、isotopeのフィルタを作成
 	const cats = build_selector_from_unique_checks('category');   // 例: ['.cup', '.bowl']
 	const techs = build_selector_from_multi_checks('technique'); // 例: ['.nerikomi']
 	const cols = build_selector_from_unique_checks('coloring');   // 例: ['.black', '.white']
@@ -135,4 +141,48 @@ function clear_coloring() {
 		checkbox.checked = false;
 	});
 	applyFilter(); // 即時反映
+}
+
+// フォームの現在値をconditions = { category[], techniques[], coloring[], is_stock } で取得
+function get_conditions() {
+	const category = Array.from(document.querySelectorAll('input[name="category[]"]:checked'))
+		.map(el => el.value);
+	const techniques = Array.from(document.querySelectorAll('input[name="techniques[]"]:checked'))
+		.map(el => el.value);
+	const coloring = Array.from(document.querySelectorAll('input[name="coloring[]"]:checked'))
+		.map(el => el.value);
+	const cb_stock = document.querySelector('input[name="is_stock"]');
+	const is_stock = !!(cb_stock && cb_stock.checked);
+	return { category, techniques, coloring, is_stock };
+}
+
+// セッションストレージから検索条件を復元
+function load_conditions() {
+	const category = JSON.parse(sessionStorage.getItem("search_category") || "[]");
+	const techniques = JSON.parse(sessionStorage.getItem("search_techniques") || "[]");
+	const coloring = JSON.parse(sessionStorage.getItem("search_coloring") || "[]");
+	const is_stock = JSON.parse(sessionStorage.getItem("search_is_stock") || false);
+	return { category, techniques, coloring, is_stock };
+}
+
+// セッションストレージに検索条件を保存
+function save_conditions(conditions) {
+	sessionStorage.setItem("search_category", JSON.stringify(conditions.category));
+	sessionStorage.setItem("search_techniques", JSON.stringify(conditions.techniques));
+	sessionStorage.setItem("search_coloring", JSON.stringify(conditions.coloring));
+	sessionStorage.setItem("search_is_stock", JSON.stringify(conditions.is_stock));
+}
+
+// 引数をもとにフォームに反映
+function update_conditions(conditions) {
+	document.querySelectorAll('input[name="category[]"]').forEach(el => {
+		el.checked = conditions.category.includes(el.value);
+	});
+	document.querySelectorAll('input[name="techniques[]"]').forEach(el => {
+		el.checked = conditions.techniques.includes(el.value);
+	});
+	document.querySelectorAll('input[name="coloring[]"]').forEach(el => {
+		el.checked = conditions.coloring.includes(el.value);
+	});
+	document.querySelector('input[name="is_stock"]').checked = !!conditions.is_stock;
 }
