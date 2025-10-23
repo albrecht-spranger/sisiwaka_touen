@@ -1,3 +1,42 @@
+<?php
+// index.php
+declare(strict_types=1);
+require_once __DIR__ . '/includes/db_connect.php';
+require_once __DIR__ . '/includes/common_func.php';
+
+// DBから情報取得
+try {
+	$pdo = get_db_connection();
+
+	// valid=1 の最新5件。時間まで持つので created_at DESC で正確にソート
+	$sql = "SELECT created_at, article
+        FROM updates
+        WHERE valid = 1
+        ORDER BY created_at DESC
+        LIMIT 5
+    ";
+	$stmt = $pdo->query($sql);
+	$updates_list = $stmt->fetchAll();
+} catch (Throwable $e) {
+	$log = sprintf(
+		"[DB Error] %s\n  File: %s\n  Line: %d\n  Code: %s",
+		$e->getMessage(),
+		$e->getFile(),
+		$e->getLine(),
+		$e->getCode()
+	);
+	error_log($log);
+
+	// 現在日時を取得して、代替データをセット
+	$updates_list = [
+		[
+			'created_at' => (new DateTime())->format('Y-m-d H:i:s'),
+			'article' => '更新情報の取得に失敗しました。'
+		]
+	];
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +56,8 @@
 
 <body>
 	<header>
-		<a href="index.html" class="header_left_block">
+		<a href="index.php" class="header_left_block">
+		<!-- <a href="index.php" class="header_left_block"> -->
 			<img class="sisiwaka_touen_icon" src="images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
 			<h1>
 				シシワカ陶苑
@@ -43,7 +83,14 @@
 			<section class="news_section">
 				<h2 class="nav_font">更新情報</h2>
 				<div class="section_contents" id="updates">
-					<!-- アイテムはJavaScriptが作る -->
+					<?php foreach ($updates_list as $update_item): ?>
+						<article class="update_item">
+							<time class="update_date">
+								<?= (new DateTime($update_item['created_at']))->format('Y/m/j') ?>
+							</time>
+							<p class="update_article is_collapsed" aria-expanded="false"><?= h($update_item['article']) ?></p>
+						</article>
+					<?php endforeach; ?>
 				</div>
 			</section>
 			<!-- Newsセクション終わり -->
@@ -57,7 +104,7 @@
 					<div class="sisiwaka_family_area">
 						<figure>
 							<img src="images/sisiwaka_touen_family.png" alt="パパ・シシワカとアクセル・シシワカ">
-							<figcaption>パパ・シシワカとアクセル・シシワカ<br>(17世紀ごろ)</figcaption>
+							<figcaption>パパ・シシワカとアクセル・シシワカ（17世紀ごろ）</figcaption>
 						</figure>
 					</div>
 					<div class="intro_text">

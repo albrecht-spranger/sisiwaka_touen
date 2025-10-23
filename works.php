@@ -49,16 +49,24 @@ try {
 	);
 	$colorings = $stmt->fetchAll();
 } catch (Throwable $e) {
-	error_log("[DB Error] " . $e->getMessage());
+	$log = sprintf(
+		"[DB Error] %s\n  File: %s\n  Line: %d\n  Code: %s",
+		$e->getMessage(),
+		$e->getFile(),
+		$e->getLine(),
+		$e->getCode()
+	);
+	error_log($log);
+
 	echo 'エラーが発生しました。';
 	exit;
 }
 
 // ⇓$productには&を付けて参照渡しにする。値を更新するため。
 foreach ($all_products as &$product) {
-    $product['techniques'] = $product['technique_slugs']
-        ? explode(',', $product['technique_slugs'])
-        : [];
+	$product['techniques'] = $product['technique_slugs']
+		? explode(',', $product['technique_slugs'])
+		: [];
 }
 // 参照渡しにしたオブジェクトを切り離す
 unset($product);
@@ -69,7 +77,7 @@ unset($product);
 
 <head>
 	<meta charset="UTF-8">
-	<title>シシワカ陶苑：作品一覧</title>
+	<title>シシワカ陶苑｜作品一覧</title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/works.css">
@@ -88,7 +96,7 @@ unset($product);
 
 <body>
 	<header>
-		<a href="index.html" class="header_left_block">
+		<a href="index.php" class="header_left_block">
 			<img class="sisiwaka_touen_icon" src="images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
 			<h1>
 				シシワカ陶苑
@@ -111,7 +119,7 @@ unset($product);
 	<main>
 		<!-- トップに戻る -->
 		<div class="main_container">
-			<p class="back_to_index"><a href="index.html" class="link_style">トップに戻る</a></p>
+			<p class="back_to_index"><a href="index.php" class="link_style">トップに戻る</a></p>
 		</div>
 
 		<!-- タイトルと検索パネル開閉ボタン -->
@@ -200,8 +208,8 @@ unset($product);
 			<?php foreach ($all_products as $product): ?>
 				<?php
 				// Isotopeのクラスに使うslug（半角小文字、空白なし推奨）
-				$cat  = h($product['category']);
-				$col  = h($product['coloring']);
+				$cat = h($product['category']);
+				$col = h($product['coloring']);
 				$tech = implode(' ', array_map('htmlspecialchars', $product['techniques']));
 				if ($product['in_stock']) {
 					$in_stock = 'in_stock';

@@ -51,7 +51,15 @@ try {
 	$techniques = $stmt_techniques->fetchAll(PDO::FETCH_COLUMN);
 	// ⇒FETCH_COLUMN：このSQLだけ連想記憶ではなく、一列の値を返す
 } catch (Throwable $e) {
-	error_log("[DB Error] " . $e->getMessage());
+	$log = sprintf(
+		"[DB Error] %s\n  File: %s\n  Line: %d\n  Code: %s",
+		$e->getMessage(),
+		$e->getFile(),
+		$e->getLine(),
+		$e->getCode()
+	);
+	error_log($log);
+
 	echo 'エラーが発生しました。';
 	exit;
 }
@@ -62,7 +70,7 @@ try {
 
 <head>
 	<meta charset="UTF-8">
-	<title>シシワカ陶苑：<?= h($artwork['description_title']) ?></title>
+	<title>シシワカ陶苑｜<?= h($artwork['description_title']) ?></title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/detail.css">
@@ -82,7 +90,7 @@ try {
 		ヘッダ
 	================================= -->
 	<header>
-		<a href="index.html" class="header_left_block">
+		<a href="index.php" class="header_left_block">
 			<img class="sisiwaka_touen_icon" src="./images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
 			<h1>
 				シシワカ陶苑
@@ -135,11 +143,9 @@ try {
 					<div class="swiper-wrapper" id="swiper_slide_holder">
 						<?php foreach ($media_rows as $media): ?>
 							<div class="swiper-slide">
-								<img loading="lazy" src="<?= h($media['image_url']) ?>"
-									alt="<?= h($media['alt_ja']) ?>"
-									<?php if ($media['video_url'] !== null): ?>
-									data-type="video" data-video_src="<?= h($media['video_url']) ?>"
-									<?php endif; ?> />
+								<img loading="lazy" src="<?= h($media['image_url']) ?>" alt="<?= h($media['alt_ja']) ?>"
+									<?php if ($media['video_url'] !== null): ?> data-type="video"
+										data-video_src="<?= h($media['video_url']) ?>" <?php endif; ?> />
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -205,7 +211,8 @@ try {
 				</dd>
 				<dt></dt>
 				<dd class="spec_update_date_style">
-					(記事<a href="admin/edit.php?id=<?= h((string) $artwork['id']) ?>" id="edit_link">更新</a><span class="non_edit">更新</span>
+					(記事<a href="admin/edit.php?id=<?= h((string) $artwork['id']) ?>" id="edit_link">更新</a><span
+						class="non_edit">更新</span>
 					<span id="spec_update_date">
 						<?php
 						$update_date = $artwork['update_date'] ?? null;

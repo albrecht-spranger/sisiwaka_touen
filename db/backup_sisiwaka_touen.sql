@@ -194,32 +194,6 @@ INSERT INTO `categories` VALUES ('coffee_cup','コーヒーカップ','Coffee Cu
 UNLOCK TABLES;
 
 --
--- Table structure for table `coloring`
---
-
-DROP TABLE IF EXISTS `coloring`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `coloring` (
-  `slug` varchar(50) NOT NULL,
-  `label_ja` varchar(100) NOT NULL,
-  `label_en` varchar(100) NOT NULL,
-  `valid` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `coloring`
---
-
-LOCK TABLES `coloring` WRITE;
-/*!40000 ALTER TABLE `coloring` DISABLE KEYS */;
-INSERT INTO `coloring` VALUES ('monotone','モノトーン','Monotone',1),('multicolour','マルチカラー','Multicolour',1);
-/*!40000 ALTER TABLE `coloring` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `colorings`
 --
 
@@ -296,32 +270,6 @@ LOCK TABLES `updates` WRITE;
 INSERT INTO `updates` VALUES ('2025-09-24 22:33:35','サイトを作成しました。',1),('2025-09-24 22:34:42','更新情報機能を追加しました。',1),('2025-10-15 15:15:32','お問い合わせフォームを追加しました。',1),('2025-10-16 03:19:50','玉サボテン様練り込みコーヒーカップ「雪割りの奔流」を追加しました。',1),('2025-10-20 11:03:33','玉サボテン様コーヒーカップ「黒亀」、柱サボテン様コーヒーカップ「十二刻」、玉サボテン様12足黒マットパスタ皿「玄武皿」、サボテン菊水様コーヒーカップ「アルマジロ」、玉サボテン様しのぎマグカップ「赫耀の秘光」、玉サボテン様練り込みコーヒーカップ「モアレ」、サボテン金剛丸様練り込みコーヒーカップ「雲海のピラミッド」、玉サボテン様乳濁赤結晶どんぶり「翠紅碗」、玉サボテン様練り込みコーヒーカップ「目覚めのフクロウ」、サボテン様練り込みコーヒーカップ「瑪瑙環」、玉サボテン様練り込みコーヒーカップ「瑪瑙晶」、玉サボテン様練り込みコーヒーカップ「瑪瑙墨」、サボテン金剛丸様練り込み中鉢「雪墨嶺」、ねじり金剛丸様練り込みデミタスカップ「牡蠣の群生」を追加しました。',1);
 /*!40000 ALTER TABLE `updates` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` varchar(100) NOT NULL,
-  `pw` varchar(100) NOT NULL,
-  `role` varchar(100) DEFAULT NULL,
-  `valid` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('sisiwaka_editor','$2y$10$SoyaepnRTbLupMp5.04T1OXYW6FGBSvAyOPhnBMxcqTUMWZhsTEYq',NULL,1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -332,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-23 15:26:07
+-- Dump completed on 2025-10-24  3:22:36

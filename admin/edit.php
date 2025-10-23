@@ -23,7 +23,7 @@ try {
 	$stmt_artwork->execute([':id' => $id]);
 	$artwork = $stmt_artwork->fetch();
 	if (!$artwork) {
-		throw new RuntimeException('Artwork not found (ID=' . $id . ').');
+		throw new RuntimeException("Artwork not found (ID={$id}).");
 	}
 
 	// ====== 画像・動画（media） ======
@@ -57,7 +57,15 @@ try {
 	$stmt_colorings = $pdo->query($sql_colorings);
 	$coloring_list = $stmt_colorings->fetchAll();
 } catch (Throwable $e) {
-	error_log("[DB Error] " . $e->getMessage());
+	$log = sprintf(
+		"[DB Error] %s\n  File: %s\n  Line: %d\n  Code: %s",
+		$e->getMessage(),
+		$e->getFile(),
+		$e->getLine(),
+		$e->getCode()
+	);
+	error_log($log);
+
 	echo 'エラーが発生しました。';
 	exit;
 }
@@ -82,7 +90,7 @@ try {
 
 <body>
 	<header>
-		<a href="../index.html" class="header_left_block">
+		<a href="../index.php" class="header_left_block">
 			<img class="sisiwaka_touen_icon" src="../images/sisiwaka_touen_logo.jpg" alt="シシワカ陶苑ロゴ">
 			<h1>
 				シシワカ陶苑
@@ -132,11 +140,11 @@ try {
 								$video_attr = ' data-type="video" data-video_src="' . h($media['video_url']) . '"';
 							}
 							?>
-							<img loading="lazy" src="<?= h($media['image_url']) ?>" alt=""
-								<?= $video_attr ?> />
+							<img loading="lazy" src="<?= h($media['image_url']) ?>" alt="" <?= $video_attr ?> />
 							<label>
 								<input type="hidden" name="media[<?= h((string) $media['id']) ?>]" value="0" />
-								<input type="checkbox" name="media[<?= h((string) $media['id']) ?>]" value="1" <?= $media['valid'] ? 'checked' : '' ?> />
+								<input type="checkbox" name="media[<?= h((string) $media['id']) ?>]" value="1"
+									<?= $media['valid'] ? 'checked' : '' ?> />
 								有効
 							</label>
 						</div>
@@ -236,11 +244,13 @@ try {
 							$formatted_date = '';
 						}
 						?>
-						<input type="date" id="spec_completion_date" name="completion_date" value="<?= $formatted_date ?>">
+						<input type="date" id="spec_completion_date" name="completion_date"
+							value="<?= $formatted_date ?>">
 					</dd>
 					<dt>Instagram</dt>
 					<dd>
-						<input type="url" name="instagram_url" id="spec_instagram_url" value="<?= h($artwork['instagram_url']) ?>">
+						<input type="url" name="instagram_url" id="spec_instagram_url"
+							value="<?= h($artwork['instagram_url']) ?>">
 					</dd>
 					<dt>在庫</dt>
 					<dd>
