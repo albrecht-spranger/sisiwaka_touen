@@ -21,6 +21,11 @@
 	border-bottom: 1px solid lightgoldenrodyellow;
 }
 
+.flash_message {
+	text-align: center;
+	font-size: 1rem;
+	color: red;
+}
 
 /* ------------------------------
   ギャラリー(Swiper)
@@ -241,6 +246,11 @@
 	display: none;
 }
 
+
+/* ===============================
+	編集画面向け
+ =============================== */
+
 /* ------------------------------
 	ギャラリー(編集)
  ------------------------------ */
@@ -267,6 +277,76 @@
 	border-radius: 6px;
 }
 
+/* ------------------------------
+	編集要素
+ ------------------------------ */
+/* テキスト入力系をフル幅に */
+.works_spec_container dd input[type="text"],
+.works_spec_container dd input[type="number"],
+.works_spec_container dd input[type="url"],
+.works_spec_container dd input[type="date"],
+.works_spec_container dd select,
+.works_spec_container dd textarea {
+	display: block;
+	/* 行要素として扱う（余白の謎を減らす） */
+	width: 100%;
+	/* 親(dd)の幅いっぱいに */
+	max-width: 100%;
+	/* どこかでmax-widthが指定されていても上書き */
+	box-sizing: border-box;
+	/* padding/border込みで100%に収める */
+	border: 1px solid gainsboro;
+}
+
+.works_spec_container dd input[type="url"]:disabled {
+	border: 1px dashed gainsboro;
+	color: dimgray;
+}
+
+#spec_category label,
+#spec_techniques label,
+#spec_coloring label {
+	margin-right: 1rem;
+	white-space: nowrap;
+}
+
+/* ------------------------------
+  キャンセルとsubmitボタン
+ ------------------------------ */
+.forms_buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+}
+
+#submit_btn,
+#cancel_btn {
+	display: block;
+	width: 20%;
+	border: 1px solid gainsboro;
+	background-color: #111111;
+	font-family: "M PLUS 2", sans-serif;
+	color: lightgoldenrodyellow;
+	font-size: 1.2rem;
+	text-align: center;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	font-weight: 500;
+}
+
+#submit_btn span,
+#cancel_btn span {
+	display: inline-block;
+	transition: transform 0.3s ease;
+	transform-origin: center center;
+}
+
+#submit_btn:hover span,
+#cancel_btn:hover span {
+	transform: scale(1.1);
+}
 
 
 /* =============================

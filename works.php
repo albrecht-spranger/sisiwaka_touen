@@ -1,8 +1,8 @@
 <?php
 // 作品一覧 w/Isotope
 declare(strict_types=1);
-require_once __DIR__ . '/db_connect.php';
-require_once __DIR__ . '/common_func.php';
+require_once __DIR__ . '/includes/db_connect.php';
+require_once __DIR__ . '/includes/common_func.php';
 
 // DBから情報取得
 try {

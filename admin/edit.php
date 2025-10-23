@@ -2,8 +2,8 @@
 // 作品詳細
 
 declare(strict_types=1);
-require_once __DIR__ . '/../db_connect.php';
-require_once __DIR__ . '/../common_func.php';
+require_once __DIR__ . '/../includes/db_connect.php';
+require_once __DIR__ . '/../includes/common_func.php';
 
 // id バリデーション
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -28,7 +28,7 @@ try {
 
 	// ====== 画像・動画（media） ======
 	$sql_media = "SELECT id, image_url, video_url, valid FROM artwork_media
-        WHERE artwork_id = :id AND valid = 1
+        WHERE artwork_id = :id
         ORDER BY sort_order ASC, id ASC
     ";
 	$stmt_media = $pdo->prepare($sql_media);
@@ -45,10 +45,10 @@ try {
 	// ===== 技法の種類一覧 =====
 	$sql_technique_labels = "SELECT slug, label_ja FROM techniques WHERE valid = 1";
 	$stmt_technique_labels = $pdo->query($sql_technique_labels);
-	$technique_list = $stmt_technique_labels->fetchAll();
+	$techniques_list = $stmt_technique_labels->fetchAll();
 
 	// ===== カテゴリ一覧 =====
-	$sql_categories = "SELECT slug, label_ja FROM categories WHERE valid = 1";
+	$sql_categories = "SELECT slug, label_ja FROM categories WHERE valid = 1 ORDER BY sort_order ASC";
 	$stmt_categories = $pdo->query($sql_categories);
 	$category_list = $stmt_categories->fetchAll();
 
@@ -68,7 +68,7 @@ try {
 
 <head>
 	<meta charset="UTF-8">
-	<title>シシワカ陶苑 - 作品詳細</title>
+	<title>シシワカ陶苑：【編集】<?= h($artwork['description_title']) ?></title>
 	<link rel="stylesheet" href="../css/reset.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/detail.css">
@@ -104,25 +104,39 @@ try {
 
 	<main>
 		<section>
+			<!-- flashメッセージ表示 -->
+			<?php
+			$error = get_flash('error');
+			$success = get_flash('success');
+			if ($error) {
+				echo '<div class="flash_message">' . h($error) . '</div>';
+			}
+			if ($success) {
+				echo '<div class="flash_message">' . h($success) . '</div>';
+			}
+			?>
+
+			<!-- タイトル -->
 			<div class="works_name_container">
 				<h1 id="works_name">編集</h1>
 			</div>
 
-			<form id="edit_form" action="edit_write.php" method="post">
+			<form id="edit_form" action="edit_process.php" method="post">
 				<!-- 画像一覧 -->
 				<div id="media_gallery">
 					<?php foreach ($media_list as $media): ?>
 						<div class="media_gallery_card">
 							<?php
-								$video_attr = '';
-								if (!empty($media['video_url'])) {
-									$video_attr = ' data-type="video" data-video_src="' . h($media['video_url']) . '"';
-								}
+							$video_attr = '';
+							if (!empty($media['video_url'])) {
+								$video_attr = ' data-type="video" data-video_src="' . h($media['video_url']) . '"';
+							}
 							?>
 							<img loading="lazy" src="<?= h($media['image_url']) ?>" alt=""
 								<?= $video_attr ?> />
 							<label>
-								<input type="checkbox" name="<?= h((string) $media['id']) ?>" value="1" <?= $media['valid'] ? 'checked' : '' ?> />
+								<input type="hidden" name="media[<?= h((string) $media['id']) ?>]" value="0" />
+								<input type="checkbox" name="media[<?= h((string) $media['id']) ?>]" value="1" <?= $media['valid'] ? 'checked' : '' ?> />
 								有効
 							</label>
 						</div>
@@ -132,72 +146,148 @@ try {
 				<!-- 作品説明 -->
 				<dl class="works_spec_container">
 					<dt>ID</dt>
-					<dd id="spec_id">(ID)</dd>
-					<input type="hidden" name="id" id="spec_hidden_id">
+					<dd id="spec_id"><?= h((string) $artwork['id'], '(ID)') ?></dd>
+					<input type="hidden" name="id" id="spec_hidden_id" value="<?= h((string) $artwork['id']) ?>" />
 					<dt>作品タイトル</dt>
 					<dd>
-						<input type="text" name="description_title" id="spec_description_title" required>
+						<input type="text" name="description_title" id="spec_description_title"
+							value="<?= h($artwork['description_title'], '(タイトル)') ?>" required>
 					</dd>
 					<dt>銘</dt>
 					<dd>
-						<input type="text" name="name" id="spec_name">
+						<input type="text" name="name" id="spec_name" value="<?= h($artwork['name'], '(銘)') ?>">
 					</dd>
 					<dt>用途</dt>
-					<dd id="spec_category"></dd>
+					<dd id="spec_category">
+						<?php foreach ($category_list as $cat): ?>
+							<label>
+								<?php
+								if ($cat['slug'] === $artwork['category']) {
+									$checked = 'checked';
+								} else {
+									$checked = '';
+								}
+								?>
+								<input type="radio" name="category" value="<?= h($cat['slug']) ?>" <?= $checked ?> />
+								<?= h($cat['label_ja']) ?>
+							</label>
+						<?php endforeach; ?>
+					</dd>
 					<dt>説明</dt>
 					<dd>
-						<textarea name="description" id="spec_description" rows="6"></textarea>
+						<textarea name="description" id="spec_description" rows="12" class="pre_line"><?= h($artwork['description']) ?>
+						</textarea>
 					</dd>
 					<dt>サイズ</dt>
 					<dd>
-						<textarea name="spec" id="spec_spec"></textarea>
+						<textarea name="spec" id="spec_spec" rows="4" class="pre_line"><?= h($artwork['spec']) ?>
+						</textarea>
 					</dd>
 					<dt>技法</dt>
-					<dd id="spec_techniques">(技法)</dd>
+					<dd id="spec_techniques">
+						<?php foreach ($techniques_list as $tech): ?>
+							<?php
+							$checked = in_array($tech['slug'], $used_techniques, true) ? 'checked' : '';
+							?>
+							<label>
+								<input type="checkbox" name="techniques[]" value="<?= $tech['slug'] ?>" <?= $checked ?> />
+								<?= $tech['label_ja'] ?>
+							</label>
+						<?php endforeach; ?>
+					</dd>
 					<dt>色合い</dt>
-					<dd id="spec_coloring">(カラー)</dd>
+					<dd id="spec_coloring">
+						<?php foreach ($coloring_list as $coloring): ?>
+							<label>
+								<?php
+								if ($coloring['slug'] === $artwork['coloring']) {
+									$checked = 'checked';
+								} else {
+									$checked = '';
+								}
+								?>
+								<input type="radio" name="coloring" value="<?= $coloring['slug'] ?>" <?= $checked ?> />
+								<?= $coloring['label_ja'] ?>
+							</label>
+						<?php endforeach; ?>
+					</dd>
 					<dt>粘土</dt>
 					<dd>
-						<textarea name="clay" id="spec_clay"></textarea>
+						<textarea name="clay" id="spec_clay" class="pre_line"><?= h($artwork['clay']) ?>
+						</textarea>
 					</dd>
 					<dt>釉薬</dt>
 					<dd>
-						<textarea name="glaze" id="spec_glaze"></textarea>
+						<textarea name="glaze" id="spec_glaze" class="pre_line"><?= h($artwork['glaze']) ?>
+						</textarea>
 					</dd>
 					<dt>補足</dt>
 					<dd>
-						<textarea name="notes" id="spec_notes"></textarea>
+						<textarea name="notes" id="spec_notes" class="pre_line"><?= h($artwork['notes']) ?>
+						</textarea>
 					</dd>
 					<dt>完成日</dt>
 					<dd>
-						<input type="date" id="spec_completion_date" name="completion_date">
+						<?php
+						$completion_date = $artwork['completion_date'] ?? null;
+						if ($completion_date) {
+							$formatted_date = (new DateTime($completion_date))->format('Y-m-d');
+						} else {
+							$formatted_date = '';
+						}
+						?>
+						<input type="date" id="spec_completion_date" name="completion_date" value="<?= $formatted_date ?>">
 					</dd>
 					<dt>Instagram</dt>
 					<dd>
-						<input type="url" name="instagram_url" id="spec_instagram_url">
+						<input type="url" name="instagram_url" id="spec_instagram_url" value="<?= h($artwork['instagram_url']) ?>">
 					</dd>
 					<dt>在庫</dt>
 					<dd>
 						<label>
+							<?php
+							if ($artwork['in_stock']) {
+								$checked = 'checked';
+							} else {
+								$checked = '';
+							}
+							?>
 							<input type="hidden" name="in_stock" value="0">
-							<input type="checkbox" name="in_stock" id="spec_in_stock" value="1">
+							<input type="checkbox" name="in_stock" id="spec_in_stock" value="1" <?= $checked ?> />
 							あり
 						</label>
 					</dd>
 					<dt>ショップURL</dt>
 					<dd>
-						<input type="url" name="shop_url" id="spec_shop_url">
+						<input type="url" name="shop_url" id="spec_shop_url" value="<?= h($artwork['shop_url']) ?>" />
 					</dd>
 					<dt>valid</dt>
 					<dd>
 						<label>
+							<?php
+							if ($artwork['valid']) {
+								$checked = 'checked';
+							} else {
+								$checked = '';
+							}
+							?>
 							<input type="hidden" name="valid" value="0">
-							<input type="checkbox" name="valid" id="spec_valid" value="1">
+							<input type="checkbox" name="valid" id="spec_valid" value="1" <?= $checked ?> />
 							本作品を有効とする
 						</label>
 					</dd>
 					<dt></dt>
-					<dd class="spec_update_date_style">(記事更新　<span id="spec_update_date">更新日</span>)</dd>
+					<dd class="spec_update_date_style">
+						<?php
+						$update_date = $artwork['update_date'] ?? null;
+						if ($update_date) {
+							$formatted_date = (new DateTime($update_date))->format('Y/n/j');
+						} else {
+							$formatted_date = '―';
+						}
+						?>
+						(記事更新　<?= $formatted_date ?>)
+					</dd>
 				</dl>
 
 				<!-- ボタン -->
@@ -223,7 +313,7 @@ try {
 	</div>
 
 	<!-- script -->
-	<script src="../scripts/edit.js"></script>
+	<script src="edit.js"></script>
 </body>
 
 </html>

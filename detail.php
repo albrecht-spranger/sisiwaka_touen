@@ -2,8 +2,8 @@
 // 作品詳細
 
 declare(strict_types=1);
-require_once __DIR__ . '/db_connect.php';
-require_once __DIR__ . '/common_func.php';
+require_once __DIR__ . '/includes/db_connect.php';
+require_once __DIR__ . '/includes/common_func.php';
 
 // id バリデーション
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -112,6 +112,19 @@ try {
 			詳細表示
 		================================= -->
 		<section>
+			<!-- flashメッセージ表示 -->
+			<?php
+			$error = get_flash('error');
+			$success = get_flash('success');
+			if ($error) {
+				echo '<div class="flash_message">' . h($error) . '</div>';
+			}
+			if ($success) {
+				echo '<div class="flash_message">' . h($success) . '</div>';
+			}
+			?>
+
+			<!-- タイトル -->
 			<div class="works_name_container">
 				<h1 id="works_name"><?= h($artwork['description_title'], 'タイトル未定') ?></h1>
 			</div>
@@ -125,9 +138,8 @@ try {
 								<img loading="lazy" src="<?= h($media['image_url']) ?>"
 									alt="<?= h($media['alt_ja']) ?>"
 									<?php if ($media['video_url'] !== null): ?>
-										data-type="video" data-video_src="<?= h($media['video_url']) ?>"
-									<?php endif; ?>
-								/>
+									data-type="video" data-video_src="<?= h($media['video_url']) ?>"
+									<?php endif; ?> />
 							</div>
 						<?php endforeach; ?>
 					</div>

@@ -2,7 +2,7 @@
 // app/db_connect.php
 declare(strict_types=1);
 
-function get_db_connection(): PDO
+function get_db_connection(bool $is_editor = false): PDO
 {
 	// pdoを使いまわす。既に存在すれば、そのまま返す
 	static $pdo = null;
@@ -11,7 +11,7 @@ function get_db_connection(): PDO
 	}
 
 	// .envファイルの読み込み
-	$envPath = __DIR__ . '/api/.env';
+	$envPath = __DIR__ . '/.env';
 	if (!is_readable($envPath)) {
 		throw new RuntimeException('.env file not found: ' . $envPath);
 	}
@@ -24,8 +24,13 @@ function get_db_connection(): PDO
 	// 必要な値を取得（存在チェックも兼ねる）
 	$host = $env['DB_HOST'] ?? 'localhost';
 	$name = $env['DB_NAME'] ?? '';
-	$user = $env['DB_READER'] ?? '';
-	$pass = $env['DB_READER_PW'] ?? '';
+	if ($is_editor) {
+		$user = $env['DB_EDITOR'] ?? '';
+		$pass = $env['DB_EDITOR_PW'] ?? '';
+	} else {
+		$user = $env['DB_READER'] ?? '';
+		$pass = $env['DB_READER_PW'] ?? '';
+	}
 
 	// passは設定されていないケースもあるのでチェックしない
 	if ($name === '' || $user === '') {
