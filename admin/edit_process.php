@@ -118,8 +118,15 @@ try {
 
 	$pdo->commit();
 
-	set_flash('success', '作品詳細を更新しました。');
-	redirect('../detail.php?id=' . h($id), 303);
+	if ($valid) {
+		// 作品が有効ならば、詳細画面に遷移
+		set_flash('success', '作品詳細を更新しました。');
+		redirect('../detail.php?id=' . h($id), 303);
+	} else {
+		// 作品を無効化した場合は一覧画面に遷移
+		set_flash('success', '作品を削除しました。');
+		redirect('../works.php', 303);
+	}
 } catch (Exception $e) {
 	if (isset($pdo) && $pdo->inTransaction()) {
 		$pdo->rollBack();

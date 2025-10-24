@@ -54,7 +54,7 @@
 }
 
 /* 
-    検索領域 
+    検索パネル
 */
 /* タイトル「作品一覧」と検索パネル開閉ボタン */
 .title_and_button {
@@ -238,7 +238,41 @@
     	isotope.js
 	======================================= */
 	.grid-item {
-		width: 120px;
+		width: 170px;
 		padding: 4px;
+	}
+
+	.thumb img {
+		border-radius: 4px;
+		height: 200px;
+	}
+
+	.caption {
+		padding: 4px 0;
+		font-size: 0.8rem;
+	}
+
+	/* =======================================
+    	検索パネル
+	======================================= */
+	/* 検索パネルの開閉ボタン */
+	#search_toggle_btn {
+		padding: 0 0.5rem;
+		border-radius: 0.5rem;
+	}
+
+	#search_form {
+		margin: 0;
+	}
+
+	.btn_in_search_panel {
+		padding: 0 0.5rem;
+		margin-left: 0.7rem;
+		border-radius: 0.5rem;
+		font-size: 0.8rem;
+	}
+
+	.field_group legend {
+		font-size: 0.9rem;
 	}
 }

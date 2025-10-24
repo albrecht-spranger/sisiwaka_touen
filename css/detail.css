@@ -21,12 +21,6 @@
 	border-bottom: 1px solid lightgoldenrodyellow;
 }
 
-.flash_message {
-	text-align: center;
-	font-size: 1rem;
-	color: red;
-}
-
 /* ------------------------------
   ギャラリー(Swiper)
  ------------------------------ */
@@ -377,12 +371,13 @@
 		margin-left: 0;
 		margin-right: 0;
 		grid-template-columns: 1fr;
-		row-gap: 1rem;
+		row-gap: 4px;
 	}
 
 	.works_spec_container dt {
 		font-size: 1rem;
 		text-align: left;
+		margin-top: 1rem;
 	}
 
 	.works_spec_container dd {

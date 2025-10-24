@@ -5,6 +5,7 @@ body {
 	font-family: "Hina Mincho", serif;
 	font-weight: 400;
 	font-style: normal;
+	font-size: 1rem;
 }
 
 header,
@@ -109,6 +110,15 @@ footer {
 .news_section,
 .about_section {
 	margin-bottom: 80px;
+}
+
+/* =====================================
+	フラッシュメッセージ
+===================================== */
+.flash_message {
+	text-align: center;
+	font-size: 1rem;
+	color: red;
 }
 
 /* ===============================
@@ -226,6 +236,10 @@ footer {
 ============================= */
 @media screen and (max-width: 768px) {
 
+	body {
+		font-size: 0.9rem;
+	}
+
 	header,
 	footer {
 		max-width: 100%;
@@ -242,7 +256,6 @@ footer {
 
 	header {
 		height: 70px;
-		/* ★★★ */
 	}
 
 	.sisiwaka_touen_icon {

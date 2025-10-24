@@ -122,6 +122,18 @@ unset($product);
 			<p class="back_to_index"><a href="index.php" class="link_style">トップに戻る</a></p>
 		</div>
 
+		<!-- flashメッセージ表示 -->
+		<?php
+		$error = get_flash('error');
+		$success = get_flash('success');
+		if ($error) {
+			echo '<div class="flash_message">' . h($error) . '</div>';
+		}
+		if ($success) {
+			echo '<div class="flash_message">' . h($success) . '</div>';
+		}
+		?>
+
 		<!-- タイトルと検索パネル開閉ボタン -->
 		<div class="title_and_button">
 			<h2 class="nav_font">作品一覧</h2>
