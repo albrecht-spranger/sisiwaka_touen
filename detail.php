@@ -176,7 +176,7 @@ try {
 				<dt>釉薬</dt>
 				<dd id="spec_glaze" class="pre_line"><?= h($artwork['glaze'], '(釉掛け)') ?></dd>
 				<dt>補足</dt>
-				<dd id="spec_notes" class="pre_line"><?= h($artwork['coloring'], '(補足)') ?></dd>
+				<dd id="spec_notes" class="pre_line"><?= h($artwork['notes'], '(補足)') ?></dd>
 				<dt>完成日</dt>
 				<dd id="spec_completion_date">
 					<?php
