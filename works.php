@@ -29,12 +29,8 @@ try {
 	$all_products = $stmt->fetchAll();
 
 	// ====== カテゴリ取得 ======
-	$stmt = $pdo->query(
-		"SELECT slug, label_ja
-              FROM categories
-             WHERE valid = 1
-          ORDER BY sort_order ASC"
-	);
+	$stmt = $pdo->query("SELECT c.* FROM categories AS c WHERE c.slug 
+		IN (SELECT DISTINCT a.category FROM artworks AS a WHERE a.valid = 1)");
 	$categories = $stmt->fetchAll();
 
 	// ====== 技法取得 ======
