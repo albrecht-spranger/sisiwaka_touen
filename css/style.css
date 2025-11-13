@@ -199,9 +199,8 @@ footer {
 /* 折りたたみ時：⇓ */
 .update_article.has_more.is_collapsed::after {
 	content: "more";
-	background-color: black;
-	border-color: goldenrod;
-	color: lightgoldenrodyellow;
+	background-color: #444444;
+	color: gainsboro;
 	font-weight: 800;
 	bottom: 0;
 	top: auto;
@@ -215,22 +214,9 @@ footer {
 
 /* 展開時：右下に ⇑ */
 .update_article.has_more[aria-expanded="true"]::after {
-	content: "⇑";
-	top: auto;
-	bottom: 0;
+	content: "";
+	display: none;
 }
-
-/* 畳み込み時 */
-/* .update_article.is_collapsed { */
-/* white-space: nowrap; */
-/* 折り返さない */
-/* } */
-
-/* 展開時は改行と折り返しを有効化して全文表示 */
-/* .update_article.is_expanded { */
-/* white-space: pre-wrap; */
-/* 改行と連続空白を保持しつつ折り返し */
-/* } */
 
 /* ======================================
     Worksへのリンクセクション
